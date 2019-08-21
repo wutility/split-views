@@ -1,0 +1,8 @@
+node_modules/
+examples/
+src/
+dist/
+tests/
+
+.gitignore
+.cache

@@ -1,0 +1,31 @@
+{
+  "name": "formel",
+  "version": "1.0.0",
+  "description": "format number, string utility",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel examples/index.html",
+    "build": "parcel build src/formel.js"
+  },
+  "keywords": [
+    "format",
+    "number",
+    "string",    
+    "utility"
+  ],
+  "devDependencies": {
+    "browserslist": "^4.6.6",
+    "caniuse-lite": "^1.0.30000989",
+    "jest": "^24.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haikelfazzani/cnv.git"
+  },
+  "bugs": {
+    "url": "https://github.com/haikelfazzani/cnv.git/issues"
+  },
+  "homepage": "https://github.com/haikelfazzani/cnv.git#readme",
+  "author": "Haikel Fazzani",
+  "license": "MIT"
+}
