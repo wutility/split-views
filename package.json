@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haikelfazzani/cnv.git"
+    "url": "git+https://github.com/haikelfazzani/formel.git"
   },
   "bugs": {
-    "url": "https://github.com/haikelfazzani/cnv.git/issues"
+    "url": "https://github.com/haikelfazzani/formel.git/issues"
   },
-  "homepage": "https://github.com/haikelfazzani/cnv.git#readme",
+  "homepage": "https://github.com/haikelfazzani/formel.git#readme",
   "author": "Haikel Fazzani",
   "license": "MIT"
 }

@@ -1,4 +1,4 @@
-# ⌛ Formel
+# 🔢😊 Formel
 
 ⚡️ **format number, string utility**
 
