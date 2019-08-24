@@ -55,10 +55,10 @@ formel("  hello   world  ").compact().val // hello world
 formel("hello world").capitalize().val // Hello world
 ```
 
-- **reverseStr() : String**
+- **revstr() : String**
 
 ```js
-formel("welcome").reverseStr().val // emoclew
+formel("welcome").revstr().val // emoclew
 ```
 - **splitInto([spread], [seprator]) : String**
 
