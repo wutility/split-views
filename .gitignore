@@ -1,4 +1,9 @@
 node_modules/
-
 dist/
+build/
+
+examples/
+production/
+
 .cache
+.vscode

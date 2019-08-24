@@ -1,8 +1,12 @@
-node_modules/
 examples/
+node_modules/
 src/
 dist/
 tests/
 
 .gitignore
 .cache
+.vscode
+.babelrc
+
+rollup.config.js

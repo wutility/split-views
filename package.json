@@ -1,23 +1,33 @@
 {
   "name": "formel",
-  "version": "1.0.0",
-  "description": "format number, string utility",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "Simply and lightweight JavaScript library for the browser and for Node.js that provides extra String methods",
+  "main": "build/index.js",
   "scripts": {
-    "dev": "parcel examples/index.html",
-    "build": "parcel build src/formel.js"
+    "examples": "rimraf -rf dist && parcel examples/index.html",
+    "clean": "rimraf -rf build/index.js",
+    "build": "npm run clean && rollup -c",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-arrow-functions": "^7.2.0",
+    "@babel/preset-env": "^7.5.5",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
+    "jest": "^24.9.0",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.20.0",
+    "rollup-plugin-babel": "^4.3.3"
   },
   "keywords": [
+    "capitalize",
+    "reverse string",
     "format",
-    "number",
-    "string",    
+    "string",
     "utility"
   ],
-  "devDependencies": {
-    "browserslist": "^4.6.6",
-    "caniuse-lite": "^1.0.30000989",
-    "jest": "^24.9.0"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/haikelfazzani/formel.git"
