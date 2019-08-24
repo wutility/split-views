@@ -31,36 +31,37 @@ formel("  hello   world  ")
 ```
 ## Methods & Examples
 
-- **rmTags() : String**
+### - rmTags() : String ###
+
 remove all html tags from a string
 ```js
 formel("<script>hello world</script> fine<br />").rmTags().val // hello world fine
 ```
 
-- **rmSpaces() : String**
+### - rmSpaces() : String ###
 remove all spaces from a string
 ```js
 formel("  hello   world  ").rmSpaces().val // helloworld
 ```
 
-- **compact() : String**
+### - compact() : String ###
 remove all extra spaces from a string
 ```js
 formel("  hello   world  ").compact().val // hello world
 ```
 
-- **capitalize() : String**
+### - capitalize() : String ###
 
 ```js
 formel("hello world").capitalize().val // Hello world
 ```
 
-- **revstr() : String**
+### - revstr() : String ###
 reverse a string
 ```js
 formel("welcome").revstr().val // emoclew
 ```
-- **splitInto([spread], [seprator]) : String**
+### - splitInto([spread], [seprator]) : String ###
 
 ```js
 formel("12456789").splitInto().val // 123 456 789
