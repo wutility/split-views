@@ -15,40 +15,57 @@ var formel = require("formel");
 Or include it via jsDelivr CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/formel@1.0.1/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/formel@1.0.4/build/index.min.js"></script>
 ```
+### Example
+```js
+formel(string) // constructor
+.capitalize() // method
+.val // get value
 
+// chaining methods
+formel("  hello   world  ")
+.compact()
+.capitalize()
+.val // Hello world
+```
 ## Methods & Examples
 
 - **rmTags() : String**
 
 ```js
-formel("<script>hello world</script> fine<br />").rmTags().val() // hello world fine
+formel("<script>hello world</script> fine<br />").rmTags().val // hello world fine
+```
+
+- **rmSpaces() : String**
+
+```js
+formel("  hello   world  ").rmSpaces().val // helloworld
 ```
 
 - **compact() : String**
 
 ```js
-formel("  hello   world  ").compact().val() // hello world
+formel("  hello   world  ").compact().val // hello world
 ```
 
 - **capitalize() : String**
 
 ```js
-formel("hello world").capitalize().val() // Hello world
+formel("hello world").capitalize().val // Hello world
 ```
 
 - **reverseStr() : String**
 
 ```js
-formel("welcome").reverseStr().val() // emoclew
+formel("welcome").reverseStr().val // emoclew
 ```
 - **splitInto([spread], [seprator]) : String**
 
 ```js
-formel("12456789").splitInto().val() // 123 456 789
-formel("hello").splitInto(2, "-").val() // he-ll-o
-formel("welcome 2019").splitInto(4).val() // we lc om e  20 19
+formel("12456789").splitInto().val // 123 456 789
+formel("hello").splitInto(2, "-").val // he-ll-o
+formel("welcome 2019").splitInto(4).val // we lc om e  20 19
 ```
 
 ## Notes

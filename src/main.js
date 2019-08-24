@@ -1,46 +1,45 @@
 function formel(str) {
 
-  var output = "";
-
   return {
+    val : str || "",
     reverseStr() {
-      output = str.split('').reverse().join('');
+      this.val = this.val.split('').reverse().join('');
       return this;
     },
-
+    compact() {
+      this.val = this.val.replace(/\s+/g, ' ').trim();
+      return this;
+    },
+    capitalize() {
+      this.val = this.val.trim();
+      this.val = this.val[0].toUpperCase() + this.val.slice(1).toLowerCase();
+      return this;
+    },
+    rmSpaces() {
+      this.val = this.val.replace(/\s+/g, '');
+      return this;
+    },
+    rmTags() {
+      this.val = this.val.replace(/<(.|\n)*?>/g, "");
+      return this;
+    },
     splitInto(spread = 3, separator = " ") {
 
       let newStr = "";
 
-      str = str.split("");
+      this.val = this.val.split("");
 
-      for (let i = 0; i < str.length; i++) {
+      for (let i = 0; i < this.val.length; i++) {
         if (i > 0 && i % spread === 0) {
           newStr += separator;
         }
-        newStr += str[i];
+        newStr += this.val[i];
       }
 
-      output = newStr;
+      this.val = newStr;
       return this;
-    },
-    capitalize() {
-      output = str[0].toUpperCase() + str.slice(1).toLowerCase();
-      return this;
-    },
-    compact() {
-      output = str.replace(/\s+/g, ' ').trim();
-      return this;
-    },
-    rmTags() {
-      output = str.replace(/<(.|\n)*?>/g, "");
-      return this;
-    },
-    val() {
-      return output;
     }
   }
 
 }
-
 export default formel;

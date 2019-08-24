@@ -1,6 +1,6 @@
 {
   "name": "formel",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Simply and lightweight JavaScript library for the browser and for Node.js that provides extra String methods",
   "main": "build/index.js",
   "scripts": {
@@ -24,6 +24,7 @@
   "keywords": [
     "capitalize",
     "reverse string",
+    "strip html",
     "format",
     "string",
     "utility"
