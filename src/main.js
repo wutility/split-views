@@ -2,7 +2,7 @@ function formel(str) {
 
   return {
     val : str || "",
-    reverseStr() {
+    revstr() {
       this.val = this.val.split('').reverse().join('');
       return this;
     },
