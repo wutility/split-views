@@ -1,6 +1,6 @@
 {
   "name": "formel",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Simply and lightweight JavaScript library for the browser and for Node.js that provides extra String methods",
   "main": "build/index.js",
   "scripts": {
@@ -27,7 +27,8 @@
     "strip html",
     "format",
     "string",
-    "utility"
+    "utility",
+    "umd"
   ],
   "repository": {
     "type": "git",
