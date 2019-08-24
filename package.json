@@ -1,7 +1,7 @@
 {
   "name": "formel",
-  "version": "1.0.6",
-  "description": "Simply and lightweight JavaScript library for the browser and for Node.js that provides extra String methods",
+  "version": "1.0.7",
+  "description": "Simply and lightweight Js package for the browser and for Node.js that provides extra String methods",
   "main": "build/index.js",
   "scripts": {
     "examples": "rimraf -rf dist && parcel examples/index.html",

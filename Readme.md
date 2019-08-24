@@ -1,6 +1,6 @@
 # 🔢😊 Formel
 
-⚡️ **Simply and lightweight JavaScript library for the browser and for Node.js that provides extra String methods.**
+⚡️ **Simply and lightweight Js package for the browser and for Node.js that provides extra String methods.**
 
 [![](https://data.jsdelivr.com/v1/package/npm/formel/badge)](https://www.jsdelivr.com/package/npm/formel) ![badgen](https://badgen.net/bundlephobia/min/formel) ![badgen](https://badgen.net/bundlephobia/minzip/formel)
 
@@ -15,7 +15,7 @@ var formel = require("formel");
 Or include it via jsDelivr CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/formel@1.0.6/build/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/formel@1.0.7/build/index.min.js"></script>
 ```
 ### Example
 ```js
@@ -42,6 +42,18 @@ formel("<script>hello world</script> fine<br />").rmTags().val // hello world fi
 remove all spaces from a string
 ```js
 formel("  hello   world  ").rmSpaces().val // helloworld
+```
+
+### - rmFirst(number) ###
+remove first n characters from a string
+```js
+formel("hello").rmFirst(2).val // llo
+```
+
+### - rmLast(number) ###
+remove last n characters from a string
+```js
+formel("sunday").rmLast(2).val // sund
 ```
 
 ### - compact() ###

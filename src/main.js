@@ -1,7 +1,15 @@
 function formel(str) {
 
   return {
-    val : str || "",
+    val: str || "",
+    rmFirst(n) { // remove first n characters from a string
+      this.val = this.val.slice(n);
+      return this;
+    },
+    rmLast(n) { // remove last n characters from a string
+      this.val = this.val.slice(0, str.length - n);
+      return this;
+    },
     revstr() {
       this.val = this.val.split('').reverse().join('');
       return this;
