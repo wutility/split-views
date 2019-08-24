@@ -15,7 +15,7 @@ var formel = require("formel");
 Or include it via jsDelivr CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/formel@1.0.4/build/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/formel@1.0.5/build/index.min.js"></script>
 ```
 ### Example
 ```js
@@ -32,19 +32,19 @@ formel("  hello   world  ")
 ## Methods & Examples
 
 - **rmTags() : String**
-
+remove all html tags from a string
 ```js
 formel("<script>hello world</script> fine<br />").rmTags().val // hello world fine
 ```
 
 - **rmSpaces() : String**
-
+remove all spaces from a string
 ```js
 formel("  hello   world  ").rmSpaces().val // helloworld
 ```
 
 - **compact() : String**
-
+remove all extra spaces from a string
 ```js
 formel("  hello   world  ").compact().val // hello world
 ```
@@ -56,7 +56,7 @@ formel("hello world").capitalize().val // Hello world
 ```
 
 - **revstr() : String**
-
+reverse a string
 ```js
 formel("welcome").revstr().val // emoclew
 ```
