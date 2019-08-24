@@ -70,7 +70,8 @@ formel("welcome 2019").splitInto(4).val // we lc om e  20 19
 ```
 
 ## Notes
-- Run both in a browser and in Node.js.
+- Works both in Node.js and in the browser.
+- All pull requests are welcome, feel free.
 
 ## License
 MIT
