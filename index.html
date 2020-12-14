@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="style.css">
+  <title>SplitViews - Fast, simple and lightweight (< 2kb) resizeable split views</title>
+  <link rel="stylesheet" href="build/index.css">
   <style>
     * {
       box-sizing: border-box;
@@ -51,60 +51,83 @@
 
     pre {
       padding: 10px;
-      background-color: #383838; color: #ffffff; border-radius: 4px;}
+      background-color: #222222;
+      color: #eede00;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    h1 {
+      font-size: 55px;
+      font-family: 'Dancing Script', cursive;
+      margin-bottom: 0;
+    }
+
+    h3 {
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Cairo', sans-serif;
+    }
   </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&family=Dancing+Script&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <div class="container">
-    <h1>Horizontal</h1>
 
-    <pre>SplitPane({ parentId: 'split-pane-h', minSize: 0, direction: 'horizontal' });</pre>
+    <h1>SplitViews</h1>
 
-    <div id="split-pane-h">
-      <div>
-        <p>What is Lorem Ipsum?
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-      </div>
-      <div>
-        <p>Where can I get some?
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some form, </p>
-      </div>
-      <div>
-        <p>What is Lorem Ipsum?
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
-      </div>
-    </div>
+    <h3>Fast, simple and lightweight (< 2kb) resizeable split views</h3>
 
-    <h1>Vertical</h1>
+        <pre>SplitViews({ parentId: 'split-pane', gutterSize:10, minSize: 20, direction: 'vertical' });</pre>
 
-    <pre>SplitPane({ parentId: 'split-pane', minSize: 0, direction: 'vertical' });</pre>
+        <div id="split-pane">
+          <div>
+            <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+          </div>
+          <div>
+            <p>Where can I get some?
+              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
+              in
+              some form, </p>
+          </div>
+          <div>
+            <p>What is Lorem Ipsum?
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+              standard dummy text ever since the 1500s,</p>
+          </div>
+        </div>
 
-    <div id="split-pane">
-      <div>
-        <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-      </div>
-      <div>
-        <p>Where can I get some?
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some form, </p>
-      </div>
-      <div>
-        <p>What is Lorem Ipsum?
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s,</p>
-      </div>
-    </div>
+        <pre>SplitViews({ parentId: 'split-pane-h', gutterSize:10, minSize: 20, direction: 'horizontal' });</pre>
 
-    
+        <div id="split-pane-h">
+          <div>
+            <p>What is Lorem Ipsum?
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+          </div>
+          <div>
+            <p>Where can I get some?
+              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
+              in
+              some form, </p>
+          </div>
+          <div>
+            <p>What is Lorem Ipsum?
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+              industry's
+            </p>
+          </div>
+        </div>
+
   </div>
 
-  <script src="index.js"></script>
+  <script src="build/index.umd.js"></script>
 
   <script>
-    SplitPane({ parentId: 'split-pane-h', gutterSize:10, minSize: 20, direction: 'horizontal' });
-    SplitPane({ parentId: 'split-pane', gutterSize:10,minSize: 20, direction: 'vertical' });
+    SplitViews({ parentId: 'split-pane-h', gutterSize: 5, minSize: 20, direction: 'horizontal' });
+    SplitViews({ parentId: 'split-pane', gutterSize: 5, minSize: 20, direction: 'vertical' });
   </script>
 
 </body>

@@ -1,4 +1,4 @@
-function SplitPane (options) {
+export default function SplitViews (options) {
 
   let defaultOptions = {
     parentId: 'split-pane',

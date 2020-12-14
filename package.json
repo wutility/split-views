@@ -1,26 +1,38 @@
 {
-  "name": "resize-pane",
+  "name": "split-views",
   "version": "1.0.0",
-  "description": "",
-  "main": "build/index.js",
+  "description": "Fast and Lightweight Utility for Resizeable Split Views",
+  "main": "build/index.umd.js",
+  "module": "build/index.esm.js",
   "scripts": {
-    "examples": "rimraf -rf dist && parcel examples/index.html",
     "clean": "rimraf -rf build/index.js",
-    "build": "npm run clean && rollup -c",
-    "test": "jest"
+    "build": "npm run clean && rollup -c"
   },
   "keywords": [
     "resize",
-    "pane"
+    "pane",
+    "split",
+    "view",
+    "utility",
+    "lightweight",
+    "fast",
+    "umd",
+    "esm"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haikelfazzani/resize-pane.git"
+    "url": "git+https://github.com/haikelfazzani/split-views.git"
   },
   "bugs": {
-    "url": "https://github.com/haikelfazzani/resize-pane.git/issues"
+    "url": "https://github.com/haikelfazzani/split-views.git/issues"
   },
-  "homepage": "https://github.com/haikelfazzani/resize-pane.git#readme",
+  "homepage": "https://github.com/haikelfazzani/split-views.git#readme",
   "author": "Haikel Fazzani",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "rollup": "^2.35.1",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2"
+  }
 }

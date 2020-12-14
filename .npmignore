@@ -1,8 +1,13 @@
 examples/
+public/
 node_modules/
 src/
 dist/
 tests/
+
+index.html
+
+yarn.lock
 
 .gitignore
 .cache
