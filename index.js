@@ -1,7 +1,7 @@
 export default function SplitViews (options) {
 
   let defaultOptions = {
-    parentId: 'split-pane',
+    parentId: 'split-view',
     direction: 'vertical',
     gutterSize: 5,
     minSize: 20,

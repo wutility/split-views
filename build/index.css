@@ -1,15 +1,3 @@
-.gutter {
-  cursor: col-resize;
-}
-
-.gutter-horizontal {
-  cursor: row-resize;
-  width: 100%;
-  height: 100%;
-}
-
-.gutter-vertical {
-  cursor: col-resize;
-  width: 100%;
-  height: 100%;
-}
+#split-view {width: 100%; display: flex;}
+.gutter-horizontal {width: 100%;height: 100%;cursor: row-resize;}
+.gutter-vertical {width: 100%;height: 100%;cursor: col-resize;}
