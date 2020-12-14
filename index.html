@@ -1,152 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SplitViews - Fast, simple and lightweight (< 2kb) resizeable split views</title>
-      <link rel="stylesheet" href="build/index.css">
-      <style>
-        * {
-          box-sizing: border-box;
-        }
+  <title>SplitViews - Fastest Resizeable Split Views</title>
+  <link rel="stylesheet" href="build/index.css">
+  <style>
+    * { box-sizing: border-box; }
 
-        body {
-          margin: 0;
-          padding: 10px;
-          text-align: center;
-          overflow: auto;
-        }
+    body { margin: 0; padding: 10px; text-align: center; overflow: auto;}
 
-        .container {
-          margin: 20px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
+    .container {
+      margin: 20px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-        #split-view-h,
-        #split-view {
-          display: flex;
-          width: 90%;
-          height: 200px;
-        }
+    #split-view-h,#split-view {display: flex;width: 90%;height: 200px; }
+    #split-view-h { flex-direction: column; height: 350px; }
 
-        #split-view-h {
-          flex-direction: column;
-        }
+    #split-view-h>div, #split-view>div {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: auto;
+      border-radius: 4px;
+      background-color: #fafafa;
+      color: #000000;      
+      border: 2px solid #ddd;
+      padding: 5px;
+    }
 
-        #split-view-h>div,
-        #split-view>div {
-          display: flex;
-          justify-content: center;
-          overflow: auto;
-          border-radius: 4px;
-          background-color: #f5f5f5;
-          color: #000000;
-          border: 2px solid rgb(224, 224, 224);
-          padding: 5px;
-        }
+    pre {
+      max-width: 90%;
+      padding: 15px;
+      background-color: #222222;
+      color: #eede00;
+      border-radius: 4px;
+      font-size: 16px;
+      text-align: left !important;
+      white-space: pre-wrap;      
+      box-shadow: 0 0 14px 0px rgb(179 179 179);
+    }
 
-        pre {
-          padding: 15px;
-          background-color: #222222;
-          color: #eede00;
-          border-radius: 4px;
-          font-size: 16px;
-          text-align: left !important;
-        }
+    h1 {
+      font-size: 55px;
+      font-family: 'Dancing Script', cursive;
+      margin-bottom: 0;
+      text-shadow: -3px 3px 3px rgb(179 179 179);
+    }
 
-        h1 {
-          font-size: 55px;
-          font-family: 'Dancing Script', cursive;
-          margin-bottom: 0;
-        }
+    h2,h3 { letter-spacing: 1px; text-transform: uppercase; font-family: 'Open Sans', sans-serif;}
+    h1,a {color: #269aff;}
+    .mt-50 {margin-top: 50px;}
+    .mb-0 {margin-bottom: 0;}
+    .mt-0 {margin-top: 0;}
+  </style>
 
-        h3 {
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          font-family: 'Cairo', sans-serif;
-          margin: 0;
-        }
-      </style>
-
-      <link href="https://fonts.googleapis.com/css2?family=Cairo&family=Dancing+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Dancing+Script&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <div class="container">
 
     <h1>SplitViews</h1>
-    <h3>Fast, Simple and lightweight</h3>
+    <h2>Fast, Simple and lightweight</h2>
 
     <div align="center" style="width:100%; text-align:center;">
       <img src="https://badgen.net/bundlephobia/minzip/split-views" alt="split-views" />
-        <img src="https://badgen.net/bundlephobia/dependency-count/split-views" alt="split-views" />
-        <img src="https://badgen.net/npm/v/split-views" alt="split-views" />
-        <img src="https://badgen.net/npm/dt/split-views" alt="split-views" />
-        <img src="https://data.jsdelivr.com/v1/package/npm/split-views/badge" alt="split-views"/>
-      </div>  
+      <img src="https://badgen.net/bundlephobia/dependency-count/split-views" alt="split-views" />
+      <img src="https://badgen.net/npm/v/split-views" alt="split-views" />
+      <img src="https://badgen.net/npm/dt/split-views" alt="split-views" />
+      <img src="https://data.jsdelivr.com/v1/package/npm/split-views/badge" alt="split-views" />
+    </div>
 
-      <pre>//-> Css (Parent Element)
+    <pre>//-> Css (Parent Element)
 #split-view { display: flex; }
 
 //-> Javascript
-SplitViews({ parentId: 'split-view', gutterSize:10, minSize: 20, direction: 'vertical' });</pre>
+SplitViews({ parentId: 'split-view', gutterSize:10, minSize: 50, direction: 'vertical' });</pre>
 
-      <div id="split-view">
-        <div>
-          <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        </div>
-        <div>
-          <p>Where can I get some?
-            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-            in
-            some form, </p>
-        </div>
-        <div>
-          <p>What is Lorem Ipsum?
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's
-            standard dummy text ever since the 1500s,</p>
-        </div>
+    <div id="split-view">
+      <div>
+        <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
       </div>
+      <div>
+        <p>Where can I get some? There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, </p>
+      </div>
+      <div>
+        <p>What is Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+      </div>
+    </div>
 
-      <pre>//-> Css
+    <pre class="mt-50">//-> Css
 #split-view-h { display: flex; flex-direction: column; }
 
 //-> Javascript
-SplitViews({ parentId: 'split-view-h', gutterSize:10, minSize: 20, direction: 'horizontal' });</pre>
+SplitViews({ parentId: 'split-view-h', gutterSize:10, minSize: 50, direction: 'horizontal' });</pre>
 
-      <div id="split-view-h">
-        <div>
-          <p>What is Lorem Ipsum?
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        </div>
-        <div>
-          <p>Where can I get some?
-            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-            in
-            some form, </p>
-        </div>
-        <div>
-          <p>What is Lorem Ipsum?
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's
-          </p>
-        </div>
+    <div id="split-view-h">
+      <div>
+        <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
       </div>
+      <div>
+        <p>Where can I get some? There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration insome form, </p>
+      </div>
+      <div>
+        <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+      </div>
+    </div>
 
+    <h3 class="mt-50 mb-0">Docs are available in <a href="https://github.com/wutility/split-views">README.md</a> on GitHub.</h3>
+    <h3 class="mt-0">© 2020. MIT license. <a href="https://github.com/haikelfazzani">Haikel Fazzani</a></h3>
   </div>
 
   <script src="build/index.umd.js"></script>
-
   <script>
-    SplitViews({ parentId: 'split-view-h', gutterSize: 5, minSize: 20, direction: 'horizontal' });
-    SplitViews({ parentId: 'split-view', gutterSize: 5, minSize: 20, direction: 'vertical' });
+    SplitViews({ parentId: 'split-view-h', gutterSize: 5, minSize: 50, direction: 'horizontal' });
+    SplitViews({ parentId: 'split-view', gutterSize: 5, minSize: 50, direction: 'vertical' });
   </script>
-
 </body>
-
 </html>

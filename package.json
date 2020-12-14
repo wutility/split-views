@@ -1,11 +1,12 @@
 {
   "name": "split-views",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Fast and Lightweight Utility for Resizeable Split Views",
   "main": "build/index.umd.js",
   "module": "build/index.esm.js",
   "scripts": {
     "clean": "rimraf -rf build/index.js",
+    "watch": "rollup -w -c",
     "build": "npm run clean && rollup -c"
   },
   "keywords": [

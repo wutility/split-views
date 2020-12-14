@@ -9,19 +9,19 @@ export default function SplitViews (options) {
   };
 
   let parentElement = document.getElementById(defaultOptions.parentId),
-    parentChildren = [...parentElement.children];
-
-  let isMouseOnGutter = false,
+    parentChildren = Array.from(parentElement.children),
+    isMouseOnGutter = false,
     childSize = 100 / parentChildren.length;
 
   let direction = defaultOptions.direction,
     gutterId = 0,
     leftChild = null,
-    rightChild = null;
+    rightChild = null,
+    gutterOffset = defaultOptions.gutterSize / 2;
 
   parentChildren.forEach((el, index) => {
     let prop = direction === 'vertical' ? 'width' : 'height';
-    el.style[prop] = `calc(${childSize}% - ${defaultOptions.gutterSize / 2}px)`;
+    el.style[prop] = `calc(${childSize}% - ${gutterOffset}px)`;
 
     if (index < parentChildren.length - 1) {
       const gutter = document.createElement('span');
@@ -44,12 +44,14 @@ export default function SplitViews (options) {
       rightChild = parentChildren[gutterId + 1];
 
       parentElement.addEventListener('mousemove', onMouseMove, false);
+      parentElement.addEventListener('mouseup', onMouseUp, false);
     }
   }
 
   function onMouseUp () {
     isMouseOnGutter = false;
     parentElement.removeEventListener('mousemove', onMouseMove, false);
+    parentElement.removeEventListener('mouseup', onMouseUp, false);
   }
 
   function onMouseMove (e) {
@@ -70,9 +72,8 @@ export default function SplitViews (options) {
 
         let prop = direction === 'vertical' ? 'width' : 'height';
 
-
-        leftChild.style[prop] = (leftElNewSize - (defaultOptions.gutterSize / 2)) + 'px';
-        rightChild.style[prop] = (rightElNewSize + (defaultOptions.gutterSize / 2)) + 'px';
+        leftChild.style[prop] = (leftElNewSize - gutterOffset) + 'px';
+        rightChild.style[prop] = (rightElNewSize + gutterOffset) + 'px';
       }
     }
 
@@ -81,5 +82,4 @@ export default function SplitViews (options) {
   }
 
   parentElement.addEventListener('mousedown', onMouseDown, false);
-  parentElement.addEventListener('mouseup', onMouseUp, false);
 }
