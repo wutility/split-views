@@ -1,23 +1,16 @@
-.splitter {
-  width: 500px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.seperator {
+.gutter {
   cursor: col-resize;
   background: url(https://raw.githubusercontent.com/RickStrahl/jquery-resizable/master/assets/vsizegrip.png) center center no-repeat #535353;
+}
+
+.gutter-horizontal {
+  cursor: row-resize;
+  width: 100%;
+  height: 5px;
+}
+
+.gutter-vertical {
+  cursor: col-resize;
   width: 5px;
-  max-width: 10px;
   height: 100%;
-}
-
-#first {
-  background-color: green;
-}
-
-#second {
-  background-color: red;
 }

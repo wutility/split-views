@@ -1,62 +1,83 @@
-let splitContainer = document.getElementById('split-pane');
-let splitContainerChildren = [...splitContainer.children];
-let isMouseDown = false;
+function SplitPane (options) {
 
-let sepId = 0;
+  let defaultOptions = {
+    parentId:'split-pane',
+    direction: 'vertical',
+    gutterSize: 5,
+    minSize: 200,
+    sizes: [25, 75],
+    ...options
+  };
 
-let elementInitWidth = 0;
-let currentElement = 0;
-let nextElement = 0;
+  let splitContainer = document.getElementById(defaultOptions.parentId),
+    splitChildren = [...splitContainer.children];
 
-splitContainerChildren.forEach((el, i) => {
+  let isMouseOnGutter = false,
+    childSize = 100 / splitChildren.length;
 
-  elementInitWidth = (splitContainer.clientWidth / splitContainerChildren.length);  
+  let direction = defaultOptions.direction,
+    gutterId = 0,
+    leftChild = null,
+    rightChild = null;
 
-  if (i < splitContainerChildren.length - 1) {
-    el.style.width = 'calc(' + elementInitWidth + 'px - 1.875px)';
-    const seperator = document.createElement('span');
-    seperator.classList.add("seperator");
-    seperator.dataset.id = i;
+  console.log(childSize);
 
-    el.parentNode.insertBefore(seperator, el.nextSibling);
-  }
-  else {
-    el.style.width = elementInitWidth + 'px';
-  }
-});
+  splitChildren.forEach((el, index) => {
 
+    let prop = direction === 'vertical' ? 'width' : 'height';
+    el.style[prop] = `calc(${childSize}% - 2.5px)`;
 
-function onSeperatorDown (e) {
-  if (e.target.classList.contains('seperator')) {
-    isMouseDown = true;
-    sepId = +e.target.dataset.id;
-    currentElement = splitContainerChildren[sepId].getBoundingClientRect();
-    nextElement = splitContainerChildren[sepId + 1].getBoundingClientRect();
-  }
+    if (index < splitChildren.length - 1) {
+      const gutter = document.createElement('span');
+      const gutterCls = direction === 'vertical' ? "gutter-vertical" : "gutter-horizontal";
 
-  e.stopPropagation();
-  e.preventDefault();
-}
+      gutter.classList.add("gutter", gutterCls);
+      gutter.dataset.id = index;
+      el.parentNode.insertBefore(gutter, el.nextSibling);
+    }
+  });
 
-function onSeperatorUp (e) {
-  isMouseDown = false;
-  e.stopPropagation();
-  e.preventDefault();
-}
+  function onMouseDown (e) {
+    if (e.target.classList.contains('gutter')) {
+      isMouseOnGutter = true;
+      gutterId = +e.target.dataset.id;
 
-window.addEventListener('mousemove', (e) => {
-  if (isMouseDown && splitContainerChildren[sepId]) {
-    let diff = e.clientX - currentElement.x;
-    let nextElNewWidth = nextElement.width + (currentElement.width - diff);
+      leftChild = splitChildren[gutterId];
+      rightChild = splitChildren[gutterId + 1];
 
-    if (diff >= 0 && nextElNewWidth >= 0) {
-      splitContainerChildren[sepId].setAttribute("style", `width: calc(${diff}px)`);
-      splitContainerChildren[sepId + 1].setAttribute("style", `width: calc(${nextElNewWidth}px)`);
+      splitContainer.addEventListener('mousemove', onMouseMove, false);
     }
   }
-  e.stopPropagation();
-  e.preventDefault();
-}, false);
 
-window.addEventListener('mousedown', onSeperatorDown, false);
-window.addEventListener('mouseup', onSeperatorUp, false);
+  function onMouseUp (e) {
+    isMouseOnGutter = false;
+    splitContainer.removeEventListener('mousemove', onMouseMove, false);
+  }
+
+  function onMouseMove (e) {
+    if (isMouseOnGutter && leftChild && rightChild) {
+
+      let leftChildInfos = leftChild.getBoundingClientRect();
+      let rightChildInfos = rightChild.getBoundingClientRect();
+
+      let leftElNewSize = direction === 'vertical'
+        ? (e.clientX - leftChildInfos.x)
+        : (e.clientY - leftChildInfos.y);
+
+      let nextElNewWidth = direction === 'vertical'
+        ? rightChildInfos.width + (leftChildInfos.width - leftElNewSize)
+        : rightChildInfos.height + (leftChildInfos.height - leftElNewSize);
+
+      if (leftElNewSize >= 0 && nextElNewWidth >= 0) {
+
+        let prop = direction === 'vertical' ? 'width' : 'height';
+
+        leftChild.style[prop] = `calc(${leftElNewSize}px)`;
+        rightChild.style[prop] = `calc(${nextElNewWidth}px)`;
+      }
+    }
+  }
+
+  splitContainer.addEventListener('mousedown', onMouseDown, false);
+  splitContainer.addEventListener('mouseup', onMouseUp, false);
+}
