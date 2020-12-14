@@ -39,11 +39,13 @@
 
     #split-pane-h>div,
     #split-pane>div {
+      display: flex;
+      justify-content: center;
       overflow: auto;
       border-radius: 4px;
-      background-color: #f1f1f1;
+      background-color: #f5f5f5;
       color: #000000;
-      border: 2px solid rgb(214, 214, 214);
+      border: 2px solid rgb(224, 224, 224);
       padding: 5px;
     }
 
@@ -101,8 +103,8 @@
   <script src="index.js"></script>
 
   <script>
-    SplitPane({ parentId: 'split-pane-h', minSize: 20, direction: 'horizontal' });
-    SplitPane({ parentId: 'split-pane', minSize: 20, direction: 'vertical' });
+    SplitPane({ parentId: 'split-pane-h', gutterSize:10, minSize: 20, direction: 'horizontal' });
+    SplitPane({ parentId: 'split-pane', gutterSize:10,minSize: 20, direction: 'vertical' });
   </script>
 
 </body>

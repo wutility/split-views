@@ -8,27 +8,28 @@ function SplitPane (options) {
     ...options
   };
 
-  let splitContainer = document.getElementById(defaultOptions.parentId),
-    splitChildren = [...splitContainer.children];
+  let parentElement = document.getElementById(defaultOptions.parentId),
+    parentChildren = [...parentElement.children];
 
   let isMouseOnGutter = false,
-    childSize = 100 / splitChildren.length;
+    childSize = 100 / parentChildren.length;
 
   let direction = defaultOptions.direction,
     gutterId = 0,
-    offset = 0,
     leftChild = null,
     rightChild = null;
 
-  splitChildren.forEach((el, index) => {
+  parentChildren.forEach((el, index) => {
     let prop = direction === 'vertical' ? 'width' : 'height';
-    el.style[prop] = `calc(${childSize}% - ${defaultOptions.gutterSize/2}px)`;
+    el.style[prop] = `calc(${childSize}% - ${defaultOptions.gutterSize / 2}px)`;
 
-    if (index < splitChildren.length - 1) {
+    if (index < parentChildren.length - 1) {
       const gutter = document.createElement('span');
       const gutterCls = direction === 'vertical' ? "gutter-vertical" : "gutter-horizontal";
 
       gutter.classList.add("gutter", gutterCls);
+
+      gutter.style[prop] = defaultOptions.gutterSize + 'px';
       gutter.dataset.id = index;
       el.parentNode.insertBefore(gutter, el.nextSibling);
     }
@@ -39,16 +40,16 @@ function SplitPane (options) {
       isMouseOnGutter = true;
       gutterId = parseInt(e.target.dataset.id, 10);
 
-      leftChild = splitChildren[gutterId];
-      rightChild = splitChildren[gutterId + 1];
+      leftChild = parentChildren[gutterId];
+      rightChild = parentChildren[gutterId + 1];
 
-      splitContainer.addEventListener('mousemove', onMouseMove, false);
+      parentElement.addEventListener('mousemove', onMouseMove, false);
     }
   }
 
   function onMouseUp () {
     isMouseOnGutter = false;
-    splitContainer.removeEventListener('mousemove', onMouseMove, false);
+    parentElement.removeEventListener('mousemove', onMouseMove, false);
   }
 
   function onMouseMove (e) {
@@ -57,15 +58,9 @@ function SplitPane (options) {
       let leftChildInfos = leftChild.getBoundingClientRect();
       let rightChildInfos = rightChild.getBoundingClientRect();
 
-      if (e.target.classList.contains('gutter')) {
-        offset = direction === 'vertical'
-          ? (e.target.offsetLeft - e.clientX)
-          : (e.target.offsetTop - e.clientY);
-      }
-
       let leftElNewSize = direction === 'vertical'
-        ? (e.clientX - leftChildInfos.x) - offset
-        : (e.clientY - leftChildInfos.y) - offset;
+        ? (e.clientX - leftChildInfos.x)
+        : (e.clientY - leftChildInfos.y);
 
       let rightElNewSize = direction === 'vertical'
         ? (rightChildInfos.width + (leftChildInfos.width - leftElNewSize))
@@ -75,8 +70,9 @@ function SplitPane (options) {
 
         let prop = direction === 'vertical' ? 'width' : 'height';
 
-        leftChild.style[prop] = leftElNewSize + 'px';
-        rightChild.style[prop] = rightElNewSize + 'px';
+
+        leftChild.style[prop] = (leftElNewSize - (defaultOptions.gutterSize / 2)) + 'px';
+        rightChild.style[prop] = (rightElNewSize + (defaultOptions.gutterSize / 2)) + 'px';
       }
     }
 
@@ -84,6 +80,6 @@ function SplitPane (options) {
     e.stopPropagation();
   }
 
-  splitContainer.addEventListener('mousedown', onMouseDown, false);
-  splitContainer.addEventListener('mouseup', onMouseUp, false);
+  parentElement.addEventListener('mousedown', onMouseDown, false);
+  parentElement.addEventListener('mouseup', onMouseUp, false);
 }

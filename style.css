@@ -6,11 +6,11 @@
 .gutter-horizontal {
   cursor: row-resize;
   width: 100%;
-  height: 5px;
+  height: 100%;
 }
 
 .gutter-vertical {
   cursor: col-resize;
-  width: 5px;
+  width: 100%;
   height: 100%;
 }
