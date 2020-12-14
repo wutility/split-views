@@ -1,16 +1,16 @@
-# 🔢😊 SplitViews | 0 dependencies | <2kb
-
-⚡️ **Fast and lightweight utility for resizeable split views.**
-
-<hr />
+<p align="center">
+<img src="https://i.ibb.co/X7hHvx7/Split-Views.png" alt="split viewes"/>
+</p>
 
 <div align="center" style="width:100%; text-align:center;">
-  <img src="https://badgen.net/bundlephobia/min/split-views" alt="split-views" />
+<img src="https://badgen.net/bundlephobia/minzip/split-views" alt="split-views" />
   <img src="https://badgen.net/bundlephobia/dependency-count/split-views" alt="split-views" />
   <img src="https://badgen.net/npm/v/split-views" alt="split-views" />
   <img src="https://badgen.net/npm/dt/split-views" alt="split-views" />
   <img src="https://data.jsdelivr.com/v1/package/npm/split-views/badge" alt="split-views"/>
-</div>
+</div>  
+
+<hr />  
 
 ```html
 $ npm i split-views
