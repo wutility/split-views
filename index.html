@@ -7,86 +7,102 @@
   <title>Document</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-      display: flex;
-      justify-content: space-between;
+    * {
+      box-sizing: border-box;
     }
 
-    #split-pane {
-      width: 45%;
-      height: 80%;
+    body {
+      margin: 0;
+      padding: 10px;
+      text-align: center;
+      overflow: auto;
+    }
+
+    .container {
+      margin: 20px;
       display: flex;
-      background-color: #000000;
-      border: 5px solid rgb(63, 63, 63);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #split-pane-h,
+    #split-pane {
+      display: flex;
+      width: 90%;
+      height: 200px;
     }
 
     #split-pane-h {
-      width: 45%;
-      height: 80%;
-      display: flex;
       flex-direction: column;
-      background-color: #000000;
-      border: 5px solid rgb(54, 54, 54);
     }
 
-    .bg-red {
-      background-color: red;
+    #split-pane-h>div,
+    #split-pane>div {
+      overflow: auto;
+      border-radius: 4px;
+      background-color: #f1f1f1;
+      color: #000000;
+      border: 2px solid rgb(214, 214, 214);
+      padding: 5px;
     }
 
-    .bg-green {
-      background-color: green;
-    }
-
-    .bg-blue {
-      background-color: blue;
-    }
+    pre {
+      padding: 10px;
+      background-color: #383838; color: #ffffff; border-radius: 4px;}
   </style>
 </head>
 
 <body>
-  <div id="split-pane-h">
-    <div class="bg-red">
-      <p>What is Lorem Ipsum?
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+  <div class="container">
+    <h1>Horizontal</h1>
+
+    <pre>SplitPane({ parentId: 'split-pane-h', minSize: 0, direction: 'horizontal' });</pre>
+
+    <div id="split-pane-h">
+      <div>
+        <p>What is Lorem Ipsum?
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+      </div>
+      <div>
+        <p>Where can I get some?
+          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
+          some form, </p>
+      </div>
+      <div>
+        <p>What is Lorem Ipsum?
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+      </div>
     </div>
-    <div class="bg-blue">
-      <p>Where can I get some?
-        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-        some form, </p>
+
+    <h1>Vertical</h1>
+
+    <pre>SplitPane({ parentId: 'split-pane', minSize: 0, direction: 'vertical' });</pre>
+
+    <div id="split-pane">
+      <div>
+        <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+      </div>
+      <div>
+        <p>Where can I get some?
+          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
+          some form, </p>
+      </div>
+      <div>
+        <p>What is Lorem Ipsum?
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+          standard dummy text ever since the 1500s,</p>
+      </div>
     </div>
-    <div class="bg-green">
-      <p>What is Lorem Ipsum?
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-        standard dummy text ever since the 1500s,</p>
-    </div>
+
+    
   </div>
 
-  <div id="split-pane">
-    <div class="bg-red">
-      <p>What is Lorem Ipsum?
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-    </div>
-    <div class="bg-blue">
-      <p>Where can I get some?
-        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-        some form, </p>
-    </div>
-    <div class="bg-green">
-      <p>What is Lorem Ipsum?
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-        standard dummy text ever since the 1500s,</p>
-    </div>
-  </div>
-  
   <script src="index.js"></script>
 
   <script>
-    SplitPane({parentId:'split-pane-h', direction:'horizontal'});
-    SplitPane({parentId:'split-pane',direction:'vertical'});
+    SplitPane({ parentId: 'split-pane-h', minSize: 20, direction: 'horizontal' });
+    SplitPane({ parentId: 'split-pane', minSize: 20, direction: 'vertical' });
   </script>
 
 </body>
