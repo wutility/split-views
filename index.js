@@ -1,19 +1,27 @@
+function checkElement (node) {
+  return typeof node === "string" ? document.getElementById(node) : node;
+}
+
 export default function SplitViews (options) {
 
   let defaultOptions = {
-    parentId: 'split-view',
+    parent: 'split-view',
     direction: 'vertical',
     gutterSize: 5,
     minSize: 20,
+    sizes: [],
+    onDragEnd: options.onDragEnd,
     ...options
   };
 
-  let parentElement = document.getElementById(defaultOptions.parentId),
+  let parentElement = checkElement(defaultOptions.parent),
     parentChildren = Array.from(parentElement.children),
     isMouseOnGutter = false,
     childSize = 100 / parentChildren.length;
 
   let direction = defaultOptions.direction,
+    sizes = defaultOptions.sizes,
+    onDragEnd = defaultOptions.onDragEnd,
     gutterId = 0,
     leftChild = null,
     rightChild = null,
@@ -21,7 +29,9 @@ export default function SplitViews (options) {
 
   parentChildren.forEach((el, index) => {
     let prop = direction === 'vertical' ? 'width' : 'height';
-    el.style[prop] = `calc(${childSize}% - ${gutterOffset}px)`;
+    el.style[prop] = sizes.length === parentChildren.length
+      ? `calc(${sizes[index]}% - ${gutterOffset}px)`
+      : `calc(${childSize}% - ${gutterOffset}px)`;
 
     if (index < parentChildren.length - 1) {
       const gutter = document.createElement('span');
@@ -36,7 +46,7 @@ export default function SplitViews (options) {
   });
 
   function onMouseDown (e) {
-    if (e.target.classList.contains('gutter')) {
+    if (e.target && e.target.classList.contains('gutter')) {
       isMouseOnGutter = true;
       gutterId = parseInt(e.target.dataset.id, 10);
 
@@ -52,6 +62,11 @@ export default function SplitViews (options) {
     isMouseOnGutter = false;
     parentElement.removeEventListener('mousemove', onMouseMove, false);
     parentElement.removeEventListener('mouseup', onMouseUp, false);
+
+    if (onDragEnd) {
+      let newSizes = parentChildren.map(el => el.getBoundingClientRect().width / parentElement.offsetWidth * 100);
+      onDragEnd(newSizes);
+    }
   }
 
   function onMouseMove (e) {
