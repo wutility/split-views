@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
   <link rel="stylesheet" href="build/index.css">
   <style>
     * { box-sizing: border-box;}
-
     body {margin: 0; padding: 10px; text-align: center;overflow: auto;}
 
     .container {
@@ -23,8 +21,7 @@
 
     #split-view-h {flex-direction: column;height: 350px;}
 
-    #split-view-h>div,
-    #split-view>div {
+    #split-view-h>div,#split-view>div {
       height: 100%;
       display: flex;
       justify-content: center;
@@ -48,13 +45,7 @@
       box-shadow: 0 0 14px 0px rgb(179 179 179);
     }
 
-    h1 {
-      font-size: 55px;
-      font-family: 'Dancing Script', cursive;
-      margin-bottom: 0;
-      text-shadow: -3px 3px 3px rgb(179 179 179);
-    }
-
+    h1 { font-size: 55px;font-family: 'Dancing Script', cursive; margin-bottom: 0;text-shadow: -3px 3px 3px rgb(179 179 179);}
     h2,h3 {letter-spacing: 1px;text-transform: uppercase;font-family: 'Open Sans', sans-serif;}
     h1,a {color: #269aff;}
     .mt-50 {margin-top: 50px;}
@@ -68,7 +59,6 @@
 
 <body>
   <div class="container">
-
     <h1>SplitViews</h1>
     <h2>Fast, Simple and lightweight</h2>
 
@@ -137,5 +127,4 @@ SplitViews({ parent: 'split-view-h', minSize: 50, direction: 'horizontal' });</p
     SplitViews({ parent: 'split-view-h', minSize: 50, direction: 'horizontal' });
   </script>
 </body>
-
 </html>

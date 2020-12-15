@@ -1,4 +1,4 @@
-function checkElement (node) {
+function isNode (node) {
   return typeof node === "string" ? document.getElementById(node) : node;
 }
 
@@ -14,7 +14,7 @@ export default function SplitViews (options) {
     ...options
   };
 
-  let parentElement = checkElement(defaultOptions.parent),
+  let parentElement = isNode(defaultOptions.parent),
     parentChildren = Array.from(parentElement.children),
     isMouseOnGutter = false,
     childSize = 100 / parentChildren.length;
