@@ -12,7 +12,8 @@
 
 <hr />  
 
-# [Demo](https://split-views.onrender.com)
+### [Demo](https://split-views.onrender.com)
+### [React Demo](https://codesandbox.io/s/split-views-8mueq)
 
 ```html
 $ npm i split-views
