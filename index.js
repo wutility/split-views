@@ -15,43 +15,52 @@ export default function SplitViews (options) {
   };
 
   let parentElement = isNode(defaultOptions.parent),
-    parentChildren = Array.from(parentElement.children),
+    children = Array.from(parentElement.children),
     isMouseOnGutter = false,
-    childSize = 100 / parentChildren.length;
+    childSize = 100 / children.length;
 
   let direction = defaultOptions.direction,
     sizes = defaultOptions.sizes,
     onDragEnd = defaultOptions.onDragEnd,
     gutterId = 0,
-    leftChild = null,
-    rightChild = null,
-    gutterOffset = defaultOptions.gutterSize / 2;
+    offset = 0;
 
-  parentChildren.forEach((el, index) => {
-    let prop = direction === 'vertical' ? 'width' : 'height';
-    el.style[prop] = sizes.length === parentChildren.length
-      ? `calc(${sizes[index]}% - ${gutterOffset}px)`
-      : `calc(${childSize}% - ${gutterOffset}px)`;
+  let leftChild = null, rightChild = null, leftChildRect = {}, rightChildRect = {};
+  let sizeDir = direction === 'vertical' ? 'width' : 'height';
 
-    if (index < parentChildren.length - 1) {
+  for (let index = 0; index < children.length; index++) {
+    const child = children[index];
+
+    let gutterSize = defaultOptions.gutterSize / 2;
+
+    child.style[sizeDir] = sizes.length === children.length
+      ? `calc(${sizes[index]}% - ${gutterSize}px)`
+      : `calc(${childSize}% - ${gutterSize}px)`;
+
+    if (index < children.length - 1) {
       const gutter = document.createElement('span');
       const gutterCls = direction === 'vertical' ? "gutter-vertical" : "gutter-horizontal";
 
       gutter.classList.add("gutter", gutterCls);
 
-      gutter.style[prop] = defaultOptions.gutterSize + 'px';
+      gutter.style[sizeDir] = defaultOptions.gutterSize + 'px';
       gutter.dataset.id = index;
-      el.parentNode.insertBefore(gutter, el.nextSibling);
+      child.parentNode.insertBefore(gutter, child.nextSibling);
     }
-  });
+  }
 
   function onMouseDown (e) {
     if (e.target && e.target.classList.contains('gutter')) {
       isMouseOnGutter = true;
       gutterId = parseInt(e.target.dataset.id, 10);
 
-      leftChild = parentChildren[gutterId];
-      rightChild = parentChildren[gutterId + 1];
+      offset = direction === 'vertical' ? e.offsetX : e.offsetY;
+
+      leftChild = children[gutterId];
+      rightChild = children[gutterId + 1];
+
+      leftChildRect = leftChild.getBoundingClientRect();
+      rightChildRect = rightChild.getBoundingClientRect();
 
       parentElement.addEventListener('mousemove', onMouseMove, false);
       parentElement.addEventListener('mouseup', onMouseUp, false);
@@ -64,7 +73,11 @@ export default function SplitViews (options) {
     parentElement.removeEventListener('mouseup', onMouseUp, false);
 
     if (onDragEnd) {
-      let newSizes = parentChildren.map(el => el.getBoundingClientRect().width / parentElement.offsetWidth * 100);
+      let parentSize = direction === 'vertical'
+        ? parentElement.offsetWidth
+        : parentElement.offsetHeight;
+
+      let newSizes = children.map(child => child.getBoundingClientRect().width / parentSize * 100);
       onDragEnd(newSizes);
     }
   }
@@ -72,23 +85,23 @@ export default function SplitViews (options) {
   function onMouseMove (e) {
     if (isMouseOnGutter && leftChild && rightChild) {
 
-      let leftChildInfos = leftChild.getBoundingClientRect();
-      let rightChildInfos = rightChild.getBoundingClientRect();
+      let parentSize = direction === 'vertical'
+        ? parentElement.offsetWidth : parentElement.offsetHeight;
 
       let leftElNewSize = direction === 'vertical'
-        ? (e.clientX - leftChildInfos.x)
-        : (e.clientY - leftChildInfos.y);
+        ? (e.clientX - leftChildRect.x) - offset
+        : (e.clientY - leftChildRect.y) - offset;
 
       let rightElNewSize = direction === 'vertical'
-        ? (rightChildInfos.width + (leftChildInfos.width - leftElNewSize))
-        : (rightChildInfos.height + (leftChildInfos.height - leftElNewSize));
+        ? rightChildRect.width + (leftChildRect.width - leftElNewSize)
+        : rightChildRect.height + (leftChildRect.height - leftElNewSize);
 
-      if (leftElNewSize >= defaultOptions.minSize && rightElNewSize >= defaultOptions.minSize) {
+      let leftP = leftElNewSize / parentSize * 100;
+      let rightP = rightElNewSize / parentSize * 100;
 
-        let prop = direction === 'vertical' ? 'width' : 'height';
-
-        leftChild.style[prop] = (leftElNewSize - gutterOffset) + 'px';
-        rightChild.style[prop] = (rightElNewSize + gutterOffset) + 'px';
+      if (leftP >= defaultOptions.minSize && rightP >= defaultOptions.minSize) {
+        leftChild.style[sizeDir] = leftP + '%';
+        rightChild.style[sizeDir] = rightP + '%';
       }
     }
 

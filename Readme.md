@@ -23,34 +23,34 @@ $ yarn add split-views
 
 ## Usage
 ```js
-import SplitPane from 'split-views';
+import SplitViews from 'split-views';
 import 'split-views/build/index.css';
 ```
 
 Or include it via jsDelivr CDN (UMD):
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/split-views@1.0.5/build/index.css" />
-<script src="https://cdn.jsdelivr.net/npm/split-views@1.0.5/build/index.umd.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/split-views@1.0.6/build/index.css" />
+<script src="https://cdn.jsdelivr.net/npm/split-views@1.0.6/build/index.umd.min.js"></script>
 <!-- Access via global object : window.SplitViews -->
 ```
 
 ### Documentation
 
-- **SplitViews(options?: Object): void**  
+- **SplitViews(options?: Object)**  
 
 | Options      | Type                          | Default        | Description                                 |
 | ------------ | ----------------------------- | -------------- | ------------------------------------------- |
 | `parent`     | `HTMLElement` or `String (id)`| `'split-view'` | Parent element.                             |
-| `sizes`      | `Array<Number>`               | `[]`           | Initial sizes of each element in percents.  |
+| `sizes`      | `Array<Number>`               | `[]`           | Initial sizes of each element in %.         |
 | `minSize`    | `Number`                      | `20`           | Minimum size.                               |
-| `gutterSize` | `Number`                      | `5`            | Gutter size.                                |
-| `direction`  | `String`                      | `'vertical'`   | Direction to split: horizontal or vertical. |
-| `onDragEnd`  | `Function`                    |                | Callback on drag end.                       |
+| `gutterSize` | `Number`                      | `5`            | Gutter size (seperator).                    |
+| `direction`  | `String`                      | `'vertical'`   | Elements direction: horizontal or vertical. |
+| `onDragEnd`  | `Method`                      |                | Callback with new sizes in %.               |
 
 ### Examples
 ```js
 const options = {
-  parent: 'my-uniq-id',
+  parent: 'parent-uniq-id', // or document.getElementById('parent-uniq-id')
   direction: 'horizontal',
   gutterSize: 15,
   minSize: 50,

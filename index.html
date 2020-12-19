@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SplitViews - Fastest Resizeable Split Views</title>
   <link rel="stylesheet" href="build/index.css">
   <style>
-    * { box-sizing: border-box;}
-    body {margin: 0; padding: 10px; text-align: center;overflow: auto;}
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 10px;
+      text-align: center;
+      overflow: auto;
+    }
 
     .container {
       margin: 20px 40px;
@@ -17,11 +26,25 @@
       align-items: center;
     }
 
-    #split-view-h,#split-view {display: flex; width: 90%; height: 200px;}
+    .vertical-align {
+      width: 100%;
+      display: flex;
+    }
 
-    #split-view-h {flex-direction: column;height: 350px;}
+    #split-view-h,
+    #split-view {
+      display: flex;
+      width: 90%;
+      height: 200px;
+    }
 
-    #split-view-h>div,#split-view>div {
+    #split-view-h {
+      flex-direction: column;
+      height: 350px;
+    }
+
+    #split-view-h>div,
+    #split-view>div {
       height: 100%;
       display: flex;
       justify-content: center;
@@ -45,13 +68,41 @@
       box-shadow: 0 0 14px 0px rgb(179 179 179);
     }
 
-    h1 { font-size: 55px;font-family: 'Dancing Script', cursive; margin-bottom: 0;text-shadow: -3px 3px 3px rgb(179 179 179);}
-    h2,h3 {letter-spacing: 1px;text-transform: uppercase;font-family: 'Open Sans', sans-serif;}
-    h1,a {color: #269aff;}
-    .mt-50 {margin-top: 50px;}
-    .mb-0 {margin-bottom: 0;}
-    .mt-0 {margin-top: 0;}
-    .txt-muted {color: #bebebe;}
+    h1 {
+      font-size: 55px;
+      font-family: 'Dancing Script', cursive;
+      margin-bottom: 0;
+      text-shadow: -3px 3px 3px rgb(179 179 179);
+    }
+
+    h2,
+    h3 {
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    h1,
+    a {
+      color: #269aff;
+      text-decoration: none;
+    }
+
+    .mt-50 {
+      margin-top: 50px;
+    }
+
+    .mb-0 {
+      margin-bottom: 0;
+    }
+
+    .mt-0 {
+      margin-top: 0;
+    }
+
+    .txt-muted {
+      color: #bebebe;
+    }
   </style>
 
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Dancing+Script&display=swap" rel="stylesheet">
@@ -59,8 +110,10 @@
 
 <body>
   <div class="container">
-    <h1>SplitViews</h1>
+    <h1><a href="https://github.com/wutility/split-views">SplitViews</a></h1>
     <h2>Fast, Simple and lightweight</h2>
+
+    <pre class="mt-0">npm i split-views</pre>
 
     <div align="center" style="width:100%; text-align:center;">
       <img src="https://badgen.net/bundlephobia/minzip/split-views" alt="split-views" />
@@ -70,7 +123,7 @@
       <img src="https://data.jsdelivr.com/v1/package/npm/split-views/badge" alt="split-views" />
     </div>
 
-    <pre>SplitViews({ gutterSize: 10, minSize: 100, sizes: [25, 50, 25] });</pre>
+    <pre>SplitViews({ gutterSize: 10, minSize: 10, sizes: [25, 50, 25] });</pre>
 
     <div id="split-view">
       <div>
@@ -86,11 +139,8 @@
       </div>
     </div>
 
-    <pre class="mt-50">//-> Css
-#split-view-h { display: flex; flex-direction: column; }
 
-//-> Javascript
-SplitViews({ parent: 'split-view-h', minSize: 50, direction: 'horizontal' });</pre>
+    <pre class="mt-50">SplitViews({ parent: 'uniq-id', minSize: 20, direction: 'horizontal' });</pre>
 
     <div id="split-view-h">
       <div>
@@ -115,7 +165,7 @@ SplitViews({ parent: 'split-view-h', minSize: 50, direction: 'horizontal' });</p
   <script>
     let options = {
       gutterSize: 10,
-      minSize: 100,
+      minSize: 10,
       sizes: [25, 50, 25],
       onDragEnd: (newSizes) => {
         console.log(newSizes);
@@ -124,7 +174,8 @@ SplitViews({ parent: 'split-view-h', minSize: 50, direction: 'horizontal' });</p
 
     SplitViews(options);
 
-    SplitViews({ parent: 'split-view-h', minSize: 50, direction: 'horizontal' });
+    SplitViews({ parent: 'split-view-h', minSize: 20, direction: 'horizontal' });
   </script>
 </body>
+
 </html>

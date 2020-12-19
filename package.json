@@ -1,25 +1,14 @@
 {
   "name": "split-views",
-  "version": "1.0.5",
-  "description": "Fast and Lightweight Utility for Resizeable Split Views",
+  "version": "1.0.6",
+  "description": "Fast and Lightweight Utility for Resizable Split Views",
   "main": "build/index.umd.js",
   "module": "build/index.esm.js",
   "scripts": {
-    "clean": "rimraf -rf build/index.js",
+    "clean": "rimraf -rf build/*.js && rimraf -rf build/*.map",
     "watch": "rollup -w -c",
     "build": "npm run clean && rollup -c"
   },
-  "keywords": [
-    "resize",
-    "pane",
-    "split",
-    "view",
-    "utility",
-    "lightweight",
-    "fast",
-    "umd",
-    "esm"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/haikelfazzani/split-views.git"
@@ -35,5 +24,16 @@
     "rollup": "^2.35.1",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2"
-  }
+  },
+  "keywords": [
+    "resizer",
+    "pane",
+    "split",
+    "view",
+    "utility",
+    "lightweight",
+    "fast",
+    "umd",
+    "esm"
+  ]
 }
