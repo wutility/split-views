@@ -88,9 +88,6 @@
       text-decoration: none;
     }
 
-    #editor {height: 300px; display: flex;}
-    #editor>* {border: 1px solid;}
-
     .w-100 {width: 100%;}
     .h-100 {height: 100%;}
 
@@ -131,23 +128,6 @@
 
     <pre>SplitViews({ gutterSize: 10, minSize: 10, sizes: [25, 50, 25] });</pre>
 
-    <div class="w-100 d-flex" id="editor">
-      <textarea class="w-100" spellcheck="false" name="txtcode" id="txtcode" cols="30" rows="10"></textarea>
-      <textarea class="w-100" spellcheck="false" name="txtcode" id="txtcode" cols="30" rows="10"></textarea>
-      <div class="w-100 h-100">
-        <div class="pre-header">
-          <svg xmlns="http://www.w3.org/2000/svg" width="54" height="16" viewBox="0 0 54 14">
-            <g fill="none" transform="translate(1 1)">
-              <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".6"></circle>
-              <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".6"></circle>
-              <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".6"></circle>
-            </g>
-          </svg>
-        </div>
-        <div class="w-100 h-100"></div>
-      </div>
-    </div>
-
     <div id="split-view">
       <div>
         <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
@@ -187,7 +167,7 @@
   <script src="build/index.umd.js"></script>
   <script>
     let options = {
-      parent: 'editor',
+      parent: 'split-view',
       gutterSize: 10,
       minSize: 10,
       sizes: [25, 50, 25],
