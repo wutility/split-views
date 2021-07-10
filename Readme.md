@@ -12,7 +12,7 @@
 
 <hr />  
 
-### [Demo](https://split-views.onrender.com)
+### [Demo](https://split-views.netlify.app/)
 ### [React Demo](https://codesandbox.io/s/split-views-8mueq)
 
 ```html
@@ -47,7 +47,7 @@ Or include it via jsDelivr CDN (UMD):
 | `direction`  | `String`                      | `'vertical'`   | Elements direction: horizontal or vertical. |
 | `onDragEnd`  | `Method`                      |                | Callback with new sizes in %.               |
 
-### Examples
+### Methods & Examples
 ```js
 const options = {
   parent: 'parent-uniq-id', // or document.getElementById('parent-uniq-id')

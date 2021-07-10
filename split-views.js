@@ -1,8 +1,15 @@
-function isNode (node) {
-  return typeof node === "string" ? document.getElementById(node) : node;
-}
-
 export default function SplitViews (options) {
+  function isNode (node) {
+    return typeof node === "string" ? document.getElementById(node) : node;
+  }
+
+  function numFormat (num) {
+    const formatter = new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 4,
+      maximumFractionDigits: 4,
+    });
+    return formatter.format(num)
+  }
 
   let defaultOptions = {
     parent: 'split-view',
@@ -38,8 +45,8 @@ export default function SplitViews (options) {
       : `calc(${childSize}% - ${gutterSize}px)`;
 
     if (index < children.length - 1) {
-      const gutter = document.createElement('span');
-      const gutterCls = direction === 'vertical' ? "gutter-vertical" : "gutter-horizontal";
+      const gutter = document.createElement('span'),
+        gutterCls = direction === 'vertical' ? "gutter-vertical" : "gutter-horizontal";
 
       gutter.classList.add("gutter", gutterCls);
 
@@ -96,8 +103,8 @@ export default function SplitViews (options) {
         ? rightChildRect.width + (leftChildRect.width - leftElNewSize)
         : rightChildRect.height + (leftChildRect.height - leftElNewSize);
 
-      let leftP = leftElNewSize / parentSize * 100;
-      let rightP = rightElNewSize / parentSize * 100;
+      let leftP = numFormat(leftElNewSize / parentSize * 100);
+      let rightP = numFormat(rightElNewSize / parentSize * 100);
 
       if (leftP >= defaultOptions.minSize && rightP >= defaultOptions.minSize) {
         leftChild.style[sizeDir] = leftP + '%';
