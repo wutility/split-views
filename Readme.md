@@ -29,8 +29,8 @@ import 'split-views/build/index.css';
 
 Or include it via jsDelivr CDN (UMD):
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/split-views@2.0.3/build/index.css" />
-<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.3/build/index.umd.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/split-views@2.0.4/build/index.css" />
+<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.4/build/index.umd.min.js"></script>
 <!-- Access via global object : window.SplitViews -->
 ```
 

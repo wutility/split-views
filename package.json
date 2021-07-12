@@ -1,13 +1,14 @@
 {
   "name": "split-views",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Fast and Lightweight Utility for Resizable Split Views",
   "main": "build/index.umd.js",
   "module": "build/index.esm.js",
   "scripts": {
     "dev": "lite-server website/index.html",
     "watch": "rollup -w -c",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "publish": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
