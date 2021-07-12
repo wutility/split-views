@@ -2,7 +2,7 @@ import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
 
 export default {
-  input: "split-views.js",
+  input: "src/index.js",
   output: [
     {
       file: 'build/index.esm.js',
@@ -22,7 +22,7 @@ export default {
       babelrc: false,
       modules: false,
       plugins: [],
-      extract: true,
+      extract: 'index.css',
       minimize: true,
       sourceMap: false,
       babelHelpers: 'runtime'

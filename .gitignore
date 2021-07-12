@@ -5,7 +5,10 @@ build/
 examples/
 production/
 
+testr/
+
 .cache
 .vscode
 
 yarn.lock
+package-lock.json

@@ -29,8 +29,8 @@ import 'split-views/build/index.css';
 
 Or include it via jsDelivr CDN (UMD):
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/split-views@1.0.6/build/index.css" />
-<script src="https://cdn.jsdelivr.net/npm/split-views@1.0.6/build/index.umd.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/split-views@2.0.1/build/index.css" />
+<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.1/build/index.umd.min.js"></script>
 <!-- Access via global object : window.SplitViews -->
 ```
 
@@ -40,20 +40,20 @@ Or include it via jsDelivr CDN (UMD):
 
 | Options      | Type                          | Default        | Description                                 |
 | ------------ | ----------------------------- | -------------- | ------------------------------------------- |
-| `parent`     | `HTMLElement` or `String (id)`| `'split-view'` | Parent element.                             |
+| `parent`     | `HTMLElement` or `String (id)`| `'#split-view'` | Parent element.                             |
 | `sizes`      | `Array<Number>`               | `[]`           | Initial sizes of each element in %.         |
 | `minSize`    | `Number`                      | `20`           | Minimum size.                               |
 | `gutterSize` | `Number`                      | `5`            | Gutter size (seperator).                    |
-| `direction`  | `String`                      | `'vertical'`   | Elements direction: horizontal or vertical. |
+| `direction`  | `String`                      | `'horizontal'`   | Elements direction: horizontal or vertical. |
 | `onDragEnd`  | `Method`                      |                | Callback with new sizes in %.               |
 
 ### Methods & Examples
 ```js
 const options = {
-  parent: 'parent-uniq-id', // or document.getElementById('parent-uniq-id')
+  parent: '#parent-id', // or document.querySelector('#parent-id')
   direction: 'horizontal',
-  gutterSize: 15,
-  minSize: 50,
+  gutterSize: 5,
+  minSize: 20,
   sizes: [25, 50, 25],
   onDragEnd: (newSizes) => {
     console.log(newSizes);

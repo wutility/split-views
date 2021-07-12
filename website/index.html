@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SplitViews - Fastest Resizeable Split Views</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/split-views@2.0.1/build/index.css" />
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Dancing+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/monokai.min.css">
+</head>
+
+<body>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+
+  <div class="container">
+    <h1><a href="https://github.com/wutility/split-views">SplitViews</a></h1>
+    <h2>Fast, Simple and lightweight</h2>
+
+    <div style="width:100%; text-align:center;">
+      <img src="https://badgen.net/bundlephobia/minzip/split-views" alt="split-views" />
+      <img src="https://badgen.net/bundlephobia/dependency-count/split-views" alt="split-views" />
+      <img src="https://badgen.net/npm/v/split-views" alt="split-views" />
+      <img src="https://badgen.net/npm/dt/split-views" alt="split-views" />
+      <img src="https://data.jsdelivr.com/v1/package/npm/split-views/badge" alt="split-views" />
+    </div>
+
+    <pre class="w-50 language-javascript txt-center"><code>$ npm install split-views 
+// or via yarn: 
+$ yarn add split-views</code></pre>
+
+    <form class="form-control mb-2">
+      <div>
+        <label for="direction">direction</label>
+        <select name="direction" id="direction">
+          <option value="vertical">vertical</option>
+          <option value="horizontal">horizontal</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="minSize">minimum Size</label>
+        <input type="number" name="minSize" id="minSize" min="1" value="10" />
+      </div>
+
+      <div>
+        <label for="gutterSize">gutter Size</label>
+        <input type="number" name="gutterSize" id="gutterSize" min="1" value="10" />
+      </div>
+
+      <button type="submit">Apply changes</button>
+    </form>
+
+    <div class="split-view horizontal">
+      <div>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
+      <span class="gutter"></span>
+      <div>Where can I get some? There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,</div>
+      <span class="gutter"></span>
+      <div>What is Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</div>      
+    </div>
+
+    <h3># Example</h3>
+    <pre class="language-html"><code class="pre-html-code"></code></pre>
+
+    <pre class="language-css"><code> /* default css code */
+.split-view {
+  width: 100%;
+  display: flex;
+}
+
+.gutter { 
+  flex: 0 0 10px;
+}
+
+.split-view.horizontal {
+  flex-direction: row;
+}
+.split-view.vertical {
+  flex-direction: column;
+}
+
+.split-view.horizontal>.gutter {
+  cursor: col-resize;
+}
+
+.split-view.vertical>.gutter {
+  cursor: row-resize;
+}</code></pre>
+
+    <pre class="language-javascript"><code> // js code
+const options = {
+  parent: '.split-view', // or document.querySelector('.split-view')
+  direction: 'horizontal',
+  gutterSize: 5,
+  minSize: 20,
+  sizes: [25, 50, 25],
+  onDragEnd: (newSizes) => {
+    console.log(newSizes);
+  }
+};
+
+SplitViews(options);</code></pre>
+
+    <h3 class="mt-50 mb-0">Docs are available in <a href="https://github.com/wutility/split-views">README.md</a> on
+      GitHub.</h3>
+    <h3 class="mt-0">© 2020. MIT license. <a href="https://github.com/haikelfazzani">Haikel Fazzani</a></h3>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/split-views@2.0.1/build/index.umd.min.js"></script>
+  <script src="index.js"></script>  
+</body>
+
+</html>

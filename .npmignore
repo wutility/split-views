@@ -4,6 +4,8 @@ node_modules/
 src/
 dist/
 tests/
+website/
+testr/
 
 index.html
 index.js
