@@ -13,7 +13,6 @@
 <hr />  
 
 ### [Demo](https://split-views.netlify.app/)
-### [React Demo](https://codesandbox.io/s/split-views-8mueq)
 
 ```html
 $ npm i split-views
@@ -24,13 +23,11 @@ $ yarn add split-views
 ## Usage
 ```js
 import SplitViews from 'split-views';
-import 'split-views/build/index.css';
 ```
 
 Or include it via jsDelivr CDN (UMD):
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/split-views@2.0.4/build/index.css" />
-<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.4/build/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.5/build/index.umd.min.js"></script>
 <!-- Access via global object : window.SplitViews -->
 ```
 
@@ -40,10 +37,10 @@ Or include it via jsDelivr CDN (UMD):
 
 | Options      | Type                          | Default        | Description                                 |
 | ------------ | ----------------------------- | -------------- | ------------------------------------------- |
-| `parent`     | `HTMLElement` or `String (id)`| `'#split-view'` | Parent element.                             |
+| `parent`     | `HTMLElement` or `String`  | `'.split-view'` | Parent element.                             |
 | `sizes`      | `Array<Number>`               | `[]`           | Initial sizes of each element in %.         |
-| `minSize`    | `Number`                      | `20`           | Minimum size.                               |
-| `gutterSize` | `Number`                      | `5`            | Gutter size (seperator).                    |
+| `minSize`    | `Number`                      | `0`           | Minimum size.                               |
+| `gutterSize` | `Number`                      | `10`            | Gutter size (seperator).                    |
 | `direction`  | `String`                      | `'horizontal'`   | Elements direction: horizontal or vertical. |
 | `onDragEnd`  | `Method`                      |                | Callback with new sizes in %.               |
 

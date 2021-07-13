@@ -1,4 +1,3 @@
-import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
 
 export default {
@@ -18,15 +17,6 @@ export default {
     }
   ],
   plugins: [
-    postcss({
-      babelrc: false,
-      modules: false,
-      plugins: [],
-      extract: 'index.css',
-      minimize: true,
-      sourceMap: false,
-      babelHelpers: 'runtime'
-    }),
     terser()
   ]
 };

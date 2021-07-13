@@ -18,3 +18,4 @@ yarn.lock
 .babelrc
 
 rollup.config.js
+bs-config.js

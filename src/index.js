@@ -1,5 +1,3 @@
-import './index.css';
-
 export default function SplitViews (ops) {
   function isNode (node) {
     return typeof node === "string" ? document.querySelector(node) : node;
@@ -11,9 +9,10 @@ export default function SplitViews (ops) {
 
   let options = {
     parent: isNode(ops.parent) || '.split-view',
-    direction: ops.direction,
+    direction: ops.direction || true,
+    gutterCln: ops.gutterCln || 'sp-gutter',
     gutterSize: ops.gutterSize || 5,
-    minSize: (ops.minSize || 20) / 100,
+    minSize: (ops.minSize || 0) / 100,
     sizes: convertSizes(ops.sizes),
     onDragEnd: ops.onDragEnd || null
   };
@@ -22,19 +21,18 @@ export default function SplitViews (ops) {
     children = Array.from(parentEL.children),
     leftChild = null,
     rightChild = null,
-    isHorizontal = true,
+    isHorizontal = options.direction === 'horizontal',
     isMouseDown = false;
 
-  let leftSize = 0,
-    rightSize = 0,
-    sumGrow = 0,
-    sumSize = 0,
-    lastPos = 0;
+  let leftSize = 0, rightSize = 0, sumGrow = 0, sumSize = 0, lastPos = 0;
+
+  parentEL.style.flexDirection = isHorizontal ? 'row' : 'column';
 
   let isNotGutter = 0;
   for (const child of children) {
-    if (child.classList.contains('gutter')) {
+    if (child.classList.contains('sp-gutter')) {
       child.style.flex = `0 0 ${ops.gutterSize}px`;
+      child.style.cursor = isHorizontal ? 'col-resize' : 'row-resize'
     }
     else {
       child.style.flex = options.sizes.length > 0 ? options.sizes[isNotGutter] : 1;
@@ -47,17 +45,10 @@ export default function SplitViews (ops) {
 
     let gutter = event.target;
 
-    if (!gutter.classList.contains('gutter') && gutter.tagName !== "SPAN") {
+    if (!parentEL || !gutter.classList.contains('sp-gutter')) {
       isMouseDown = false;
       return;
-    }
-
-    if (!parentEL) {
-      isMouseDown = false;
-      return;
-    }
-
-    isHorizontal = parentEL.classList.contains("horizontal")
+    }    
 
     leftChild = gutter.previousElementSibling;
     rightChild = gutter.nextElementSibling;
@@ -80,18 +71,24 @@ export default function SplitViews (ops) {
 
   function onMouseMove (event) {
     if (isMouseDown) {
-      let pageDir = isHorizontal ? event.pageX : event.pageY,
-        diff = pageDir - lastPos;
+      let pageDir = isHorizontal ? event.pageX : event.pageY;
+      let diff = pageDir - lastPos;
 
       leftSize += diff;
       rightSize -= diff;
 
-      let prevGrowNew = sumGrow * (leftSize / sumSize);
-      let nextGrowNew = sumGrow * (rightSize / sumSize);
+      let isMinSize = leftSize < options.minSize || rightSize < options.minSize;
 
-      if (leftChild && rightChild && (prevGrowNew > options.minSize && nextGrowNew > options.minSize)) {
-        leftChild.style.flexGrow = prevGrowNew;
-        rightChild.style.flexGrow = nextGrowNew;
+      if (!isMinSize) {
+        let prevGrowNew = sumGrow * (leftSize / sumSize);
+        let nextGrowNew = sumGrow * (rightSize / sumSize);
+
+        isMinSize = prevGrowNew < options.minSize || nextGrowNew < options.minSize;
+
+        if (leftChild && rightChild && !isMinSize) {
+          leftChild.style.flexGrow = prevGrowNew;
+          rightChild.style.flexGrow = nextGrowNew;
+        }
       }
 
       lastPos = pageDir;
@@ -105,13 +102,13 @@ export default function SplitViews (ops) {
     if (options.onDragEnd) {
       let newSizes = [];
       for (const child of children) {
-        if (!child.classList.contains('gutter')) newSizes.push(child.style.flexGrow * 100);
+        if (!child.classList.contains('sp-gutter')) newSizes.push(child.style.flexGrow * 100);
       }
       options.onDragEnd(newSizes);
     }
-    window.removeEventListener("mousemove", onMouseMove);
-    window.removeEventListener("mouseup", onMouseUp);
+    window.removeEventListener("mousemove", onMouseMove)
+    window.removeEventListener("mouseup", onMouseUp)
   }
 
-  window.addEventListener("mousedown", onMouseDown);
+  window.addEventListener("mousedown", onMouseDown)
 }
