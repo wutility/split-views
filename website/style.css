@@ -10,13 +10,14 @@ body {
   overflow: auto;
 }
 
-.container {  
-  margin: 20px 100px;
+.container {    
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }  
+
+.container,footer {padding: 20px 100px;}
 
 .split-view {
   height: 400px;
@@ -119,11 +120,16 @@ button:hover {opacity: 0.8;}
 
 .grid-2 {
   display: grid;
-  grid-template-columns: 4fr 1fr;
+  grid-template-columns: 2fr 1fr 2fr;
   grid-gap: 10px;
+  overflow: auto;
 }
 
+.grid-2 code {height: 100% !important; overflow: auto;}
+
 .d-flex {display: flex;}
+
+.justify-between {justify-content: space-between;}
 
 .w-50 {
   width: 50%;
@@ -158,3 +164,17 @@ button:hover {opacity: 0.8;}
 }
 
 .txt-center{text-align: center;}
+
+@media screen and (max-width: 992px) {
+  footer,.container {  
+    padding: 20px 30px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  footer,.container {  
+    padding: 20px 10px;
+  }
+
+  .w-50 {width: 100%;}
+}

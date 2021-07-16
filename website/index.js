@@ -29,8 +29,10 @@ window.SplitViews(options);
 document.querySelector('.pre-html-code').textContent = `<!-- html skeleton -->
 <div class="split-view">
   <div>child 1</div>
-  <span class="sp-gutter"></span> <!--Tag and className 'sp-gutter' are required -->
+  <!-- ClassName 'sp-gutter' is required -->
+  <span class="sp-gutter"></span>
   <div>child 2</div>
+  <!-- ClassName 'sp-gutter' is required -->
   <span class="sp-gutter"></span>
   <div>child 3</div>
 </div>`;
