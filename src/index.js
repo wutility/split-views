@@ -17,22 +17,27 @@ export default function SplitViews (ops) {
     onDragEnd: ops.onDragEnd || null
   };
 
+  let isTouch = null,
+    addEvent = window.addEventListener,
+    rmEvent = window.removeEventListener;
+
   let parentEL = options.parent,
     children = Array.from(parentEL.children),
     leftChild = null,
     rightChild = null,
-    isHorizontal = options.direction === 'horizontal',
+    gutter = null,
+    isHr = options.direction === 'horizontal',
     isMouseDown = false;
 
   let leftSize = 0, rightSize = 0, sumGrow = 0, sumSize = 0, lastPos = 0;
 
-  parentEL.style.flexDirection = isHorizontal ? 'row' : 'column';
+  parentEL.style.flexDirection = isHr ? 'row' : 'column';
 
   let isNotGutter = 0;
   for (const child of children) {
     if (child.classList.contains('sp-gutter')) {
       child.style.flex = `0 0 ${ops.gutterSize}px`;
-      child.style.cursor = isHorizontal ? 'col-resize' : 'row-resize'
+      child.style.cursor = (isHr ? 'col' : 'row') + '-resize'
     }
     else {
       child.style.flex = options.sizes.length > 0 ? options.sizes[isNotGutter] : 1;
@@ -40,39 +45,51 @@ export default function SplitViews (ops) {
     }
   }
 
-  function onMouseDown (event) {
-    isMouseDown = true;
+  function onStart (e) {
+    gutter = e.target
+    isMouseDown = true
 
-    let gutter = event.target;
-
-    if (!parentEL || !gutter.classList.contains('sp-gutter')) {
+    if (!gutter.classList.contains('sp-gutter')) {
       isMouseDown = false;
       return;
-    }    
+    }
 
+    isTouch = /^touch/g.test(e.type)
     leftChild = gutter.previousElementSibling;
     rightChild = gutter.nextElementSibling;
 
     if (leftChild && rightChild) {
-      leftSize = isHorizontal ? leftChild.offsetWidth : leftChild.offsetHeight;
-      rightSize = isHorizontal ? rightChild.offsetWidth : rightChild.offsetHeight;
-      lastPos = isHorizontal ? event.pageX : event.pageY;
+      leftSize = isHr ? leftChild.offsetWidth : leftChild.offsetHeight;
+      rightSize = isHr ? rightChild.offsetWidth : rightChild.offsetHeight;
+
+      let pageX = isTouch ? e.changedTouches[0].pageX : e.pageX,
+        pageY = isTouch ? e.changedTouches[0].pageY : e.pageY
+
+      lastPos = isHr ? pageX : pageY;
 
       sumSize = leftSize + rightSize;
       sumGrow = Number(leftChild.style.flexGrow) + Number(rightChild.style.flexGrow);
-
-      window.addEventListener("mousemove", onMouseMove);
-      window.addEventListener("mouseup", onMouseUp);
     }
 
-    event.preventDefault();
-    event.stopPropagation();
+    if (isTouch) {
+      addEvent("touchmove", onMove);
+      addEvent("touchend", onStop);
+      addEvent("touchcancel", onStop);
+    }
+    else {
+      addEvent("mousemove", onMove);
+      addEvent("mouseup", onStop);
+    }
   }
 
-  function onMouseMove (event) {
+  function onMove (e) {
     if (isMouseDown) {
-      let pageDir = isHorizontal ? event.pageX : event.pageY;
-      let diff = pageDir - lastPos;
+      isTouch = /^touch/g.test(e.type)
+      let pageX = isTouch ? e.changedTouches[0].pageX : e.pageX,
+        pageY = isTouch ? e.changedTouches[0].pageY : e.pageY
+
+      let pageDir = isHr ? pageX : pageY,
+        diff = pageDir - lastPos;
 
       leftSize += diff;
       rightSize -= diff;
@@ -93,22 +110,36 @@ export default function SplitViews (ops) {
 
       lastPos = pageDir;
     }
-    event.preventDefault();
-    event.stopPropagation();
+
+    if (!isTouch) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   }
 
-  function onMouseUp () {
+  function onStop () {
     isMouseDown = false;
+    gutter = null;
+
     if (options.onDragEnd) {
-      let newSizes = [];
+      const newSizes = [];
       for (const child of children) {
         if (!child.classList.contains('sp-gutter')) newSizes.push(child.style.flexGrow * 100);
       }
       options.onDragEnd(newSizes);
     }
-    window.removeEventListener("mousemove", onMouseMove)
-    window.removeEventListener("mouseup", onMouseUp)
+
+    if (isTouch) {
+      rmEvent("touchmove", onMove)
+      rmEvent("touchend", onStop)
+      rmEvent("touchcancel", onStop)
+    }
+    else {
+      rmEvent("touchmove", onMove)
+      rmEvent("touchend", onStop)
+    }
   }
 
-  window.addEventListener("mousedown", onMouseDown)
+  addEvent("touchstart", onStart)
+  addEvent("mousedown", onStart)
 }

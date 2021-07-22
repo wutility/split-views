@@ -30,7 +30,6 @@ body {
   border-radius: 7px;
   background-color: #ffffff;
   color: #000000;
-  border: 2px solid #ddd;
   padding: 10px; 
   box-shadow: 0 1px 5px 0 rgba(60,64,67,.3); 
 }
@@ -129,6 +128,8 @@ button:hover {opacity: 0.8;}
 
 .d-flex {display: flex;}
 
+.flex-column {flex-direction: column;}
+
 .justify-between {justify-content: space-between;}
 
 .w-50 {
@@ -147,21 +148,13 @@ button:hover {opacity: 0.8;}
   margin-bottom: 0;
 }
 
-.mt-2 {
-  margin-top: 20px;
-}
+.mt-2 {margin-top: 20px; }
 
-.mb-2 {
-  margin-bottom: 20px;
-}
+.mb-2 {margin-bottom: 20px; }
 
-.mt-0 {
-  margin-top: 0;
-}
+.mt-0 {margin-top: 0; }
 
-.txt-muted {
-  color: #bebebe;
-}
+.txt-muted {color: #bebebe; }
 
 .txt-center{text-align: center;}
 

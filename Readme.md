@@ -14,7 +14,7 @@
 
 ### [Demo](https://split-views.netlify.app/)
 
-```html
+```js
 $ npm i split-views
 // or
 $ yarn add split-views
@@ -27,7 +27,7 @@ import SplitViews from 'split-views';
 
 Or include it via jsDelivr CDN (UMD):
 ```html
-<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.5/build/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.6/build/index.umd.min.js"></script>
 <!-- Or via unpkg -->
 <script src="https://unpkg.com/split-views"></script>
 <!-- Access via global object : window.SplitViews -->
@@ -43,10 +43,10 @@ Or include it via jsDelivr CDN (UMD):
 | `sizes`      | `Array<Number>`               | `[]`           | Initial sizes of each element in %.         |
 | `minSize`    | `Number`                      | `0`           | Minimum size.                               |
 | `gutterSize` | `Number`                      | `5`            | Gutter size (seperator).                    |
-| `direction`  | `String`                      | `'horizontal'`   | Elements direction: horizontal or vertical. |
+| `direction`  | `String`                      | `'horizontal'`   | Resize direction: horizontal or vertical. |
 | `onDragEnd`  | `Method`                      |                | Callback with new sizes in %.               |
 
-### Methods & Examples
+## Methods & Examples
 ```js
 const options = {
   parent: '#parent-id', // or HTMLElement
@@ -65,7 +65,7 @@ SplitViews(options);
 ## Notes
 - All pull requests are welcome, feel free.
 
-### Author
+## Author
 - [Haikel Fazzani](https://github.com/haikelfazzani)
 
 ## License

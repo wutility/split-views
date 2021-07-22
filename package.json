@@ -1,11 +1,11 @@
 {
   "name": "split-views",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Fast and Lightweight Utility for Resizable Split Views",
   "main": "build/index.umd.js",
   "module": "build/index.esm.js",
   "scripts": {
-    "dev": "lite-server -c bs-config.js",
+    "dev": "sv --port 8001",
     "watch": "rollup -w -c",
     "build": "rollup -c",
     "publish": "npm run build && npm publish"
@@ -21,11 +21,10 @@
   "author": "Haikel Fazzani",
   "license": "MIT",
   "devDependencies": {
-    "lite-server": "^2.6.1",
-    "rimraf": "^3.0.2",
     "rollup": "^2.35.1",
     "rollup-plugin-postcss": "^3.1.8",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "servino": "0.0.4"
   },
   "keywords": [
     "resizer",

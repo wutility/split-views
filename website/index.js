@@ -1,5 +1,6 @@
 const splitViewsContainer = document.querySelector('.split-view');
 
+
 function createChilds (num) {
   splitViewsContainer.innerHTML = '';
 
@@ -14,7 +15,7 @@ function createChilds (num) {
 }
 
 let options = {
-  parent: '.split-view',
+  parent: '#sv',
   direction: 'horizontal',
   gutterSize: 10,
   minSize: 0,
