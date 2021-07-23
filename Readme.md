@@ -27,7 +27,7 @@ import SplitViews from 'split-views';
 
 Or include it via jsDelivr CDN (UMD):
 ```html
-<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.6/build/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.7/build/index.umd.min.js"></script>
 <!-- Or via unpkg -->
 <script src="https://unpkg.com/split-views"></script>
 <!-- Access via global object : window.SplitViews -->

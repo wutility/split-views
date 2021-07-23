@@ -1,10 +1,10 @@
 export default function SplitViews (ops) {
   function isNode (node) {
-    return typeof node === "string" ? document.querySelector(node) : node;
+    return typeof node === "string" ? document.querySelector(node) : node
   }
 
   function convertSizes (sizes) {
-    return sizes && sizes.length > 0 ? sizes.map(s => s / 100) : [];
+    return sizes && sizes.length > 0 ? sizes.map(s => s / 100) : []
   }
 
   let options = {
@@ -62,12 +62,10 @@ export default function SplitViews (ops) {
       leftSize = isHr ? leftChild.offsetWidth : leftChild.offsetHeight;
       rightSize = isHr ? rightChild.offsetWidth : rightChild.offsetHeight;
 
-      let pageX = isTouch ? e.changedTouches[0].pageX : e.pageX,
-        pageY = isTouch ? e.changedTouches[0].pageY : e.pageY
+      e = isTouch ? e.changedTouches[0] : e;
+      lastPos = isHr ? e.pageX : e.pageY
 
-      lastPos = isHr ? pageX : pageY;
-
-      sumSize = leftSize + rightSize;
+      sumSize = leftSize + rightSize
       sumGrow = Number(leftChild.style.flexGrow) + Number(rightChild.style.flexGrow);
     }
 
@@ -84,11 +82,9 @@ export default function SplitViews (ops) {
 
   function onMove (e) {
     if (isMouseDown) {
-      isTouch = /^touch/g.test(e.type)
-      let pageX = isTouch ? e.changedTouches[0].pageX : e.pageX,
-        pageY = isTouch ? e.changedTouches[0].pageY : e.pageY
+      e = isTouch ? e.changedTouches[0] : e      
 
-      let pageDir = isHr ? pageX : pageY,
+      let pageDir = isHr ? e.pageX : e.pageY,
         diff = pageDir - lastPos;
 
       leftSize += diff;
@@ -118,8 +114,8 @@ export default function SplitViews (ops) {
   }
 
   function onStop () {
-    isMouseDown = false;
-    gutter = null;
+    isMouseDown = false
+    gutter = null
 
     if (options.onDragEnd) {
       const newSizes = [];
@@ -135,8 +131,8 @@ export default function SplitViews (ops) {
       rmEvent("touchcancel", onStop)
     }
     else {
-      rmEvent("touchmove", onMove)
-      rmEvent("touchend", onStop)
+      rmEvent("mousemove", onMove)
+      rmEvent("mouseup", onStop)
     }
   }
 

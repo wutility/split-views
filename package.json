@@ -1,6 +1,6 @@
 {
   "name": "split-views",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Fast and Lightweight Utility for Resizable Split Views",
   "main": "build/index.umd.js",
   "module": "build/index.esm.js",
