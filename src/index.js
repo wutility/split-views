@@ -1,3 +1,8 @@
+/*!
+* SplitViews - Utility for resizable split views.
+* Licensed Under MIT
+* Copyright 2021 Haikel Fazzani
+*/
 export default function SplitViews (ops) {
   function isNode (node) {
     return typeof node === "string" ? document.querySelector(node) : node
@@ -14,7 +19,7 @@ export default function SplitViews (ops) {
     gutterSize: ops.gutterSize || 5,
     minSize: (ops.minSize || 0) / 100,
     sizes: convertSizes(ops.sizes),
-    onDragEnd: ops.onDragEnd || null
+    onDragEnd: ops.onDragEnd
   };
 
   let isTouch = null,
@@ -23,13 +28,17 @@ export default function SplitViews (ops) {
 
   let parentEL = options.parent,
     children = Array.from(parentEL.children),
-    leftChild = null,
-    rightChild = null,
-    gutter = null,
+    leftChild,
+    rightChild,
+    gutter,
     isHr = options.direction === 'horizontal',
     isMouseDown = false;
 
-  let leftSize = 0, rightSize = 0, sumGrow = 0, sumSize = 0, lastPos = 0;
+  let leftSize = 0,
+    rightSize = 0,
+    sumGrow = 0,
+    sumSize = 0,
+    lastPos = 0;
 
   parentEL.style.flexDirection = isHr ? 'row' : 'column';
 
@@ -54,6 +63,9 @@ export default function SplitViews (ops) {
       return;
     }
 
+    parentEL = gutter.parentNode
+    isHr = parentEL.classList.contains('horizontal')
+
     isTouch = /^touch/g.test(e.type)
     leftChild = gutter.previousElementSibling;
     rightChild = gutter.nextElementSibling;
@@ -70,19 +82,19 @@ export default function SplitViews (ops) {
     }
 
     if (isTouch) {
-      addEvent("touchmove", onMove);
-      addEvent("touchend", onStop);
-      addEvent("touchcancel", onStop);
+      addEvent("touchmove", onMove)
+      addEvent("touchend", onStop)
+      addEvent("touchcancel", onStop)
     }
     else {
-      addEvent("mousemove", onMove);
-      addEvent("mouseup", onStop);
+      addEvent("mousemove", onMove)
+      addEvent("mouseup", onStop)
     }
   }
 
   function onMove (e) {
     if (isMouseDown) {
-      e = isTouch ? e.changedTouches[0] : e      
+      e = isTouch ? e.changedTouches[0] : e
 
       let pageDir = isHr ? e.pageX : e.pageY,
         diff = pageDir - lastPos;
@@ -93,8 +105,8 @@ export default function SplitViews (ops) {
       let isMinSize = leftSize < options.minSize || rightSize < options.minSize;
 
       if (!isMinSize) {
-        let prevGrowNew = sumGrow * (leftSize / sumSize);
-        let nextGrowNew = sumGrow * (rightSize / sumSize);
+        let prevGrowNew = sumGrow * (leftSize / sumSize),
+          nextGrowNew = sumGrow * (rightSize / sumSize);
 
         isMinSize = prevGrowNew < options.minSize || nextGrowNew < options.minSize;
 
@@ -104,12 +116,12 @@ export default function SplitViews (ops) {
         }
       }
 
-      lastPos = pageDir;
+      lastPos = pageDir
     }
 
     if (!isTouch) {
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault()
+      e.stopPropagation()
     }
   }
 
@@ -122,7 +134,7 @@ export default function SplitViews (ops) {
       for (const child of children) {
         if (!child.classList.contains('sp-gutter')) newSizes.push(child.style.flexGrow * 100);
       }
-      options.onDragEnd(newSizes);
+      options.onDragEnd(newSizes)
     }
 
     if (isTouch) {
