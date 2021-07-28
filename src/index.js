@@ -1,8 +1,3 @@
-/*!
-* SplitViews - Utility for resizable split views.
-* Licensed Under MIT
-* Copyright 2021 Haikel Fazzani
-*/
 export default function SplitViews (ops) {
   function isNode (node) {
     return typeof node === "string" ? document.querySelector(node) : node

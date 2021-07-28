@@ -1,20 +1,4 @@
-const splitViewsContainer = document.querySelector('.split-view');
-
-
-function createChilds (num) {
-  splitViewsContainer.innerHTML = '';
-
-  for (let i = 0; i < num; i++) {
-    const div = document.createElement('div')
-    const p = document.createElement('p')
-    p.textContent = 'What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-    div.appendChild(p)
-
-    splitViewsContainer.appendChild(div)
-  }
-}
-
-let options = {
+window.SplitViews({
   parent: '#sv',
   direction: 'horizontal',
   gutterSize: 10,
@@ -23,11 +7,10 @@ let options = {
   onDragEnd: (values) => {
     console.log('onDragEnd', values);
   }
-};
+});
 
-window.SplitViews(options);
-
-const sp = window.SplitViews({
+// vertical direction
+window.SplitViews({
   parent: '#sv2',
   direction: 'vertical',
   gutterSize: 5,
