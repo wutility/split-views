@@ -30,7 +30,7 @@ window.SplitViews(options);
 const sp = window.SplitViews({
   parent: '#sv2',
   direction: 'vertical',
-  gutterSize: 10,
+  gutterSize: 5,
   minSize: 0
 });
 
@@ -49,10 +49,13 @@ document.querySelector('.pre-html-code').textContent = `
 
   <div>child 2</div>
 
-  <!-- ClassName 'sp-gutter' is required -->
   <span class="sp-gutter"></span>
 
-  <div>child 3</div>
+  <div class="split-view2 vertical">
+    <div>Child 3</div>
+    <span class="sp-gutter"></span>
+    <div>Child 4</div>
+  </div>
 
 </div>`;
 

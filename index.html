@@ -65,11 +65,19 @@ $ yarn add split-views</code></pre>
     SplitViews is flexbox based
   */
   display: flex;
+}
+
+.horizontal { 
+  flex-direction: row; 
+}
+
+.vertical { 
+  flex-direction: colmun; 
 }</code></pre>
 
       <pre class="language-javascript"><code>import SplitViews from 'split-views';
 
-const options = {
+SplitViews({
   parent: '.split-view',
   direction: 'horizontal',
   gutterSize: 5,
@@ -78,9 +86,15 @@ const options = {
   onDragEnd: (newSizes) => {
     console.log(newSizes);
   }
-};
+});
 
-SplitViews(options);</code></pre>
+// Vertical direction
+window.SplitViews({
+  parent: '.split-view2',
+  direction: 'vertical',
+  gutterSize: 5,
+  minSize: 0
+});</code></pre>
     </div>
 
     <h3>Notes</h3>

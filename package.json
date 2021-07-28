@@ -1,14 +1,13 @@
 {
   "name": "split-views",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Fast and Lightweight Utility for Resizable Split Views",
-  "main": "build/index.umd.js",
-  "module": "build/index.esm.js",
+  "browser": "build/index.umd.js",
+  "main": "build/index.js",
   "scripts": {
     "dev": "sv --port 8001",
     "watch": "rollup -w -c",
-    "build": "rollup -c",
-    "publish": "npm run build && npm publish"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -24,17 +23,13 @@
     "rollup": "^2.35.1",
     "rollup-plugin-postcss": "^3.1.8",
     "rollup-plugin-terser": "^7.0.2",
-    "servino": "0.0.4"
+    "servino": "0.0.6"
   },
   "keywords": [
     "resizer",
     "pane",
     "split",
     "view",
-    "utility",
-    "lightweight",
-    "fast",
-    "umd",
-    "esm"
+    "utility"
   ]
 }
