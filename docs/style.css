@@ -27,7 +27,6 @@ body {
 
 .split-view>div {  
   overflow: auto;
-  border-radius: 7px;
   background-color: #ffffff;
   color: #000000;
   padding: 10px; 
@@ -116,6 +115,8 @@ button {
 }
 
 button:hover {opacity: 0.8;}
+
+li {font-size: 18px;}
 
 .grid-2 {
   display: grid;

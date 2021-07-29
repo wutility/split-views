@@ -80,7 +80,7 @@ $ yarn add split-views</code></pre>
 SplitViews({
   parent: '.split-view',
   direction: 'horizontal',
-  gutterSize: 5,
+  gutterSize: 10,
   minSize: 0,
   sizes: [25, 50, 25],
   onDragEnd: (newSizes) => {
@@ -93,15 +93,21 @@ window.SplitViews({
   parent: '.split-view2',
   direction: 'vertical',
   gutterSize: 5,
-  minSize: 0
+  minSize: 20,
+  sizes: [75, 25]
 });</code></pre>
 
     </div>
 
+    <h3>CDN Links</h3>
+    <pre class="language-html"><code class="pre-cdn"></code></pre>
+
     <h3>Notes</h3>
     <ul class="w-100 txt-left">
+      <li>No events listeners are attached to Window.</li>
+      <li>SplitViews is flex-based.</li>
       <li>Support events: Mouse and Touch</li>
-      <li>Tested on: Firefox, Chrome, Safari</li>
+      <li>Tested on Chrome 67, Firefox 67, Edge 70, Opera 67, Safari 11, Android (>= 4).</li>      
     </ul>
   </div>
 

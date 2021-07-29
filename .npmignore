@@ -1,5 +1,6 @@
 examples/
 public/
+website/
 node_modules/
 src/
 dist/

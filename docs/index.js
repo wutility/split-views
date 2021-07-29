@@ -1,3 +1,4 @@
+
 window.SplitViews({
   parent: '#sv',
   direction: 'horizontal',
@@ -14,7 +15,8 @@ window.SplitViews({
   parent: '#sv2',
   direction: 'vertical',
   gutterSize: 5,
-  minSize: 0
+  minSize: 20,
+  sizes: [75, 25]
 });
 
 document.querySelector('.pre-html-code').textContent = `
@@ -41,5 +43,10 @@ document.querySelector('.pre-html-code').textContent = `
   </div>
 
 </div>`;
+
+document.querySelector('.pre-cdn').textContent = `<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.11/build/index.umd.min.js"></script>
+<!-- Or via unpkg -->
+<script src="https://unpkg.com/split-views"></script>
+<!-- Access via global object : window.SplitViews -->`;
 
 hljs.highlightAll();

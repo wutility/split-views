@@ -1,32 +1,27 @@
-export default function SplitViews (ops) {
-  function isNode (node) {
-    return typeof node === "string" ? document.querySelector(node) : node
-  }
+export default function SplitViews (op) {
+  const isNode = n => typeof n === "string" ? document.querySelector(n) : n;
+  const convertSizes = s => s && s.length > 0 ? s.map(s => s / 100) : [];
 
-  function convertSizes (sizes) {
-    return sizes && sizes.length > 0 ? sizes.map(s => s / 100) : []
-  }
-
-  let options = {
-    parent: isNode(ops.parent) || '.split-view',
-    direction: ops.direction || true,
-    gutterCln: ops.gutterCln || 'sp-gutter',
-    gutterSize: ops.gutterSize || 5,
-    minSize: (ops.minSize || 0) / 100,
-    sizes: convertSizes(ops.sizes),
-    onDragEnd: ops.onDragEnd
+  let ops = {
+    parent: isNode(op.parent) || '.split-view',
+    direction: op.direction || true,
+    gutterCln: op.gutterCln || 'sp-gutter',
+    gutterSize: op.gutterSize || 5,
+    minSize: op.minSize || 0,
+    sizes: convertSizes(op.sizes),
+    onDragEnd: op.onDragEnd
   };
 
   let isTouch = null,
-    addEvent = window.addEventListener,
-    rmEvent = window.removeEventListener;
+    parentEL = ops.parent,
+    addEvent = parentEL.addEventListener,
+    rmEvent = parentEL.removeEventListener
 
-  let parentEL = options.parent,
-    children = Array.from(parentEL.children),
+  let children = Array.from(parentEL.children),
     leftChild,
     rightChild,
     gutter,
-    isHr = options.direction === 'horizontal',
+    isHr = ops.direction === 'horizontal',
     isMouseDown = false;
 
   let leftSize = 0,
@@ -35,17 +30,18 @@ export default function SplitViews (ops) {
     sumSize = 0,
     lastPos = 0;
 
-  parentEL.style.flexDirection = isHr ? 'row' : 'column';
+  parentEL.dataset.minsize = ops.minSize
+  parentEL.style.flexDirection = isHr ? 'row' : 'column'
 
   let isNotGutter = 0;
   for (const child of children) {
     if (child.classList.contains('sp-gutter')) {
-      child.style.flex = `0 0 ${ops.gutterSize}px`;
+      child.style.flex = `0 0 ${ops.gutterSize}px`
       child.style.cursor = (isHr ? 'col' : 'row') + '-resize'
     }
     else {
-      child.style.flex = options.sizes.length > 0 ? options.sizes[isNotGutter] : 1;
-      isNotGutter++;
+      child.style.flex = ops.sizes.length > 0 ? ops.sizes[isNotGutter] : 1
+      isNotGutter++
     }
   }
 
@@ -53,17 +49,17 @@ export default function SplitViews (ops) {
     gutter = e.target
     isMouseDown = true
 
-    if (!gutter.classList.contains('sp-gutter')) {
-      isMouseDown = false;
-      return;
+    if (!gutter.classList.contains(ops.gutterCln)) {
+      isMouseDown = false
+      return
     }
 
     parentEL = gutter.parentNode
     isHr = parentEL.classList.contains('horizontal')
 
     isTouch = /^touch/g.test(e.type)
-    leftChild = gutter.previousElementSibling;
-    rightChild = gutter.nextElementSibling;
+    leftChild = gutter.previousElementSibling
+    rightChild = gutter.nextElementSibling
 
     if (leftChild && rightChild) {
       leftSize = isHr ? leftChild.offsetWidth : leftChild.offsetHeight;
@@ -95,20 +91,16 @@ export default function SplitViews (ops) {
         diff = pageDir - lastPos;
 
       leftSize += diff;
-      rightSize -= diff;
+      rightSize -= diff
 
-      let isMinSize = leftSize < options.minSize || rightSize < options.minSize;
+      let minsize = parentEL.dataset.minsize
 
-      if (!isMinSize) {
+      if (leftSize >= minsize && rightSize >= minsize) {
         let prevGrowNew = sumGrow * (leftSize / sumSize),
           nextGrowNew = sumGrow * (rightSize / sumSize);
 
-        isMinSize = prevGrowNew < options.minSize || nextGrowNew < options.minSize;
-
-        if (leftChild && rightChild && !isMinSize) {
-          leftChild.style.flexGrow = prevGrowNew;
-          rightChild.style.flexGrow = nextGrowNew;
-        }
+        leftChild.style.flexGrow = prevGrowNew;
+        rightChild.style.flexGrow = nextGrowNew;
       }
 
       lastPos = pageDir
@@ -124,23 +116,19 @@ export default function SplitViews (ops) {
     isMouseDown = false
     gutter = null
 
-    if (options.onDragEnd) {
+    if (ops.onDragEnd) {
       const newSizes = [];
       for (const child of children) {
         if (!child.classList.contains('sp-gutter')) newSizes.push(child.style.flexGrow * 100);
       }
-      options.onDragEnd(newSizes)
+      ops.onDragEnd(newSizes)
     }
 
-    if (isTouch) {
-      rmEvent("touchmove", onMove)
-      rmEvent("touchend", onStop)
-      rmEvent("touchcancel", onStop)
-    }
-    else {
-      rmEvent("mousemove", onMove)
-      rmEvent("mouseup", onStop)
-    }
+    rmEvent("touchmove", onMove)
+    rmEvent("touchend", onStop)
+    rmEvent("touchcancel", onStop)
+    rmEvent("mousemove", onMove)
+    rmEvent("mouseup", onStop)
   }
 
   addEvent("touchstart", onStart)

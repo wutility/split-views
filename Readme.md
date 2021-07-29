@@ -1,10 +1,12 @@
 # ✂ SplitViews  
 **Utility for resizable split views.**
 
-- Fast.
-- Simple.
+- Fast (Performance First).
+- Simple to use.
 - Lightweight <1kb.
 - Zero dependencies.
+- No events listeners are attached to Window.
+- Compatible: Firefox - Chrome - Safari - Opera - Android - (FlexBox is not supported in IE).
 
 <div align="center" style="width:100%; text-align:center;">
 <img src="https://badgen.net/bundlephobia/minzip/split-views" alt="split-views" />
@@ -31,7 +33,7 @@ import SplitViews from 'split-views';
 
 Or include it via jsDelivr CDN (UMD):
 ```html
-<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.10/build/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.11/build/index.umd.min.js"></script>
 <!-- Or via unpkg -->
 <script src="https://unpkg.com/split-views"></script>
 <!-- Access via global object : window.SplitViews -->
@@ -48,7 +50,7 @@ Or include it via jsDelivr CDN (UMD):
 | `minSize`    | `Number`                      | `0`           | Minimum size.                               |
 | `gutterSize` | `Number`                      | `5`            | Gutter size (seperator).                    |
 | `direction`  | `String`                      | `'horizontal'`   | Resize direction: horizontal or vertical. |
-| `onDragEnd`  | `Method`                      |                | Callback with new sizes in %.               |
+| `onDragEnd`  | `Method`                      |    `null`        | Callback with new sizes in %.               |
 
 ## Methods & Examples
 ```js
@@ -67,7 +69,7 @@ SplitViews(options);
 ```
 
 ## Notes
-- Tested on Chrome 70, Firefox 70, Edge 70, Opera 70, Safari 11, Android 8 & 4.
+- Tested on Chrome 70, Firefox 70, Edge 70, Opera 70, Safari 11, Android (>= 4).
 - SplitViews is flex-based.
 - All pull requests are welcome, feel free.
 
