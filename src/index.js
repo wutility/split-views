@@ -2,23 +2,37 @@ export default function SplitViews (op) {
   const isNode = n => typeof n === "string" ? document.querySelector(n) : n;
   const convertSizes = s => s && s.length > 0 ? s.map(s => s / 100) : [];
 
+  const setSizes = (children, isHr) => {
+    let isNotGutter = 0
+    for (const child of children) {
+      if (child.classList.contains(ops.gutterCln)) {
+        child.style.flex = `0 0 ${ops.gutterSize}px`
+        child.style.cursor = (isHr ? 'col' : 'row') + '-resize'
+      }
+      else {
+        child.style.flex = ops.sizes.length > 0 ? ops.sizes[isNotGutter] : 1
+        isNotGutter++
+      }
+    }
+  }
+
   let ops = {
     parent: isNode(op.parent) || '.split-view',
-    direction: op.direction || true,
-    gutterCln: op.gutterCln || 'sp-gutter',
+    direction: op.direction,
+    gutterCln: 'sp-gutter',
     gutterSize: op.gutterSize || 5,
     minSize: op.minSize || 0,
     sizes: convertSizes(op.sizes),
     onDragEnd: op.onDragEnd
   };
 
-  let isTouch = null,
+  let isTouch = false,
     parentEL = ops.parent,
+    children = Array.from(parentEL.children),
     addEvent = parentEL.addEventListener,
     rmEvent = parentEL.removeEventListener
 
-  let children = Array.from(parentEL.children),
-    leftChild,
+  let leftChild,
     rightChild,
     gutter,
     isHr = ops.direction === 'horizontal',
@@ -33,17 +47,7 @@ export default function SplitViews (op) {
   parentEL.dataset.minsize = ops.minSize
   parentEL.style.flexDirection = isHr ? 'row' : 'column'
 
-  let isNotGutter = 0;
-  for (const child of children) {
-    if (child.classList.contains('sp-gutter')) {
-      child.style.flex = `0 0 ${ops.gutterSize}px`
-      child.style.cursor = (isHr ? 'col' : 'row') + '-resize'
-    }
-    else {
-      child.style.flex = ops.sizes.length > 0 ? ops.sizes[isNotGutter] : 1
-      isNotGutter++
-    }
-  }
+  setSizes(children, isHr)
 
   function onStart (e) {
     gutter = e.target
@@ -62,14 +66,25 @@ export default function SplitViews (op) {
     rightChild = gutter.nextElementSibling
 
     if (leftChild && rightChild) {
-      leftSize = isHr ? leftChild.offsetWidth : leftChild.offsetHeight;
-      rightSize = isHr ? rightChild.offsetWidth : rightChild.offsetHeight;
 
-      e = isTouch ? e.changedTouches[0] : e;
-      lastPos = isHr ? e.pageX : e.pageY
+      leftSize = isHr
+        ? leftChild.offsetWidth
+        : leftChild.offsetHeight
+
+      rightSize = isHr
+        ? rightChild.offsetWidth
+        : rightChild.offsetHeight
+
+      e = isTouch
+        ? e.changedTouches[0]
+        : e
+
+      lastPos = isHr
+        ? e.pageX
+        : e.pageY
 
       sumSize = leftSize + rightSize
-      sumGrow = Number(leftChild.style.flexGrow) + Number(rightChild.style.flexGrow);
+      sumGrow = Number(leftChild.style.flexGrow) + Number(rightChild.style.flexGrow)
     }
 
     if (isTouch) {
@@ -85,22 +100,21 @@ export default function SplitViews (op) {
 
   function onMove (e) {
     if (isMouseDown) {
-      e = isTouch ? e.changedTouches[0] : e
+      e = isTouch
+        ? e.changedTouches[0]
+        : e
 
       let pageDir = isHr ? e.pageX : e.pageY,
         diff = pageDir - lastPos;
 
-      leftSize += diff;
+      leftSize += diff
       rightSize -= diff
 
-      let minsize = parentEL.dataset.minsize
+      const minsize = parentEL.dataset.minsize
 
       if (leftSize >= minsize && rightSize >= minsize) {
-        let prevGrowNew = sumGrow * (leftSize / sumSize),
-          nextGrowNew = sumGrow * (rightSize / sumSize);
-
-        leftChild.style.flexGrow = prevGrowNew;
-        rightChild.style.flexGrow = nextGrowNew;
+        leftChild.style.flexGrow = sumGrow * (leftSize / sumSize)
+        rightChild.style.flexGrow = sumGrow * (rightSize / sumSize)
       }
 
       lastPos = pageDir
@@ -117,9 +131,10 @@ export default function SplitViews (op) {
     gutter = null
 
     if (ops.onDragEnd) {
-      const newSizes = [];
+      const newSizes = []
       for (const child of children) {
-        if (!child.classList.contains('sp-gutter')) newSizes.push(child.style.flexGrow * 100);
+        if (!child.classList.contains(ops.gutterCln))
+          newSizes.push(child.style.flexGrow * 100);
       }
       ops.onDragEnd(newSizes)
     }

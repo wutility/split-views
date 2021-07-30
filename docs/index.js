@@ -4,6 +4,7 @@ window.SplitViews({
   direction: 'horizontal',
   gutterSize: 10,
   minSize: 0,
+  snapOffset: 20,
   sizes: [25, 50, 25],
   onDragEnd: (values) => {
     console.log('onDragEnd', values);

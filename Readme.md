@@ -33,7 +33,7 @@ import SplitViews from 'split-views';
 
 Or include it via jsDelivr CDN (UMD):
 ```html
-<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.11/build/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.12/build/index.umd.min.js"></script>
 <!-- Or via unpkg -->
 <script src="https://unpkg.com/split-views"></script>
 <!-- Access via global object : window.SplitViews -->
@@ -69,7 +69,7 @@ SplitViews(options);
 ```
 
 ## Notes
-- Tested on Chrome 70, Firefox 70, Edge 70, Opera 70, Safari 11, Android (>= 4).
+- Tested on Chrome 67, Firefox 67, Edge 70, Opera 67, Safari 11, Android (>= 4).
 - SplitViews is flex-based.
 - All pull requests are welcome, feel free.
 
