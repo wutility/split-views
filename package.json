@@ -1,14 +1,15 @@
 {
   "name": "split-views",
-  "version": "2.0.12",
+  "version": "2.1.0",
   "description": "Fast and Lightweight Utility for Resizable Split Views",
-  "browser": "build/index.umd.js",
   "module": "build/index.esm.js",
   "main": "build/index.js",
   "scripts": {
+    "rm:win": "rmdir /S /Q build",
+    "rm:linux": "rmdir dirname build",
     "dev": "sv --inject true --port 8001",
-    "watch": "rollup -w -c",
-    "build": "rollup -c"
+    "watch": "set NODE_ENV=developement && rollup -w -c",
+    "build": "yarn rm:win &&set NODE_ENV=production && rollup -c"
   },
   "repository": {
     "type": "git",

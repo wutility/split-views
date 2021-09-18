@@ -1,8 +1,7 @@
 # ✂ SplitViews  
 **Utility for resizable split views.**
 
-- Fast (Performance First).
-- Simple to use.
+- Fast & Simple to use.
 - Lightweight <1kb.
 - Zero dependencies.
 - No events listeners are attached to Window.
@@ -20,9 +19,9 @@
 
 ### [Demo](https://split-views.netlify.app/)
 
-```js
+```bash
 $ npm i split-views
-// or
+# or
 $ yarn add split-views
 ```
 
@@ -33,7 +32,7 @@ import SplitViews from 'split-views';
 
 Or include it via jsDelivr CDN (UMD):
 ```html
-<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.12/build/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.12/build/index.min.js"></script>
 <!-- Or via unpkg -->
 <script src="https://unpkg.com/split-views"></script>
 <!-- Access via global object : window.SplitViews -->
@@ -41,7 +40,7 @@ Or include it via jsDelivr CDN (UMD):
 
 ## Documentation
 
-- **SplitViews(options: Object): void**  
+- **SplitViews(options: Object): Object**  
 
 | Options      | Type                          | Default        | Description                                 |
 | ------------ | ----------------------------- | -------------- | ------------------------------------------- |
@@ -65,8 +64,15 @@ const options = {
   }
 };
 
-SplitViews(options);
+const sp = SplitViews(options)
+
+// detroy method: remove "touchstart" and "mousedown" events
+// the others events are removed by default
+sp.detroy() 
 ```
+
+# Related
+- [React](https://github.com/haikelfazzani/react-split-views): React component wrapper
 
 ## Notes
 - Tested on Chrome 67, Firefox 67, Edge 70, Opera 67, Safari 11, Android (>= 4).

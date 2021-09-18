@@ -8,23 +8,18 @@ export default {
   output: [
     {
       name: 'SplitViews',
-      file: 'build/index.umd.js',
+      file: 'build/index.js',
       format: 'umd',
-      sourcemap: false,
+      sourcemap: !process.env.NODE_ENV.includes('production'),
       banner,
     },
     {
       file: 'build/index.esm.js',
       format: 'esm',
-      sourcemap: false,
-    },    
-    {
-      file: 'build/index.js',
-      format: 'cjs',
-      sourcemap: false
+      sourcemap: !process.env.NODE_ENV.includes('production')
     }
   ],
   plugins: [
-    terser()
+    process.env.NODE_ENV.includes('production') ? terser() : ''
   ]
 };

@@ -1,13 +1,15 @@
+let localSizes = localStorage.getItem('sizes')
 
-window.SplitViews({
+let sp = window.SplitViews({
   parent: '#sv',
   direction: 'horizontal',
   gutterSize: 10,
   minSize: 0,
   snapOffset: 20,
-  sizes: [25, 50, 25],
+  sizes: localSizes ? JSON.parse(localSizes) : [25, 50, 25],
   onDragEnd: (values) => {
     console.log('onDragEnd', values);
+    localStorage.setItem('sizes', JSON.stringify(values))
   }
 });
 

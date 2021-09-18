@@ -26,16 +26,16 @@ export default function SplitViews (op) {
     onDragEnd: op.onDragEnd
   };
 
-  let isTouch = false,
-    parentEL = ops.parent,
+  let parentEL = ops.parent,
     children = Array.from(parentEL.children),
+    leftChild,
+    rightChild,
+    gutter,
     addEvent = parentEL.addEventListener,
     rmEvent = parentEL.removeEventListener
 
-  let leftChild,
-    rightChild,
-    gutter,
-    isHr = ops.direction === 'horizontal',
+  let isHr = ops.direction === 'horizontal',
+    isTouch = false,
     isMouseDown = false;
 
   let leftSize = 0,
@@ -133,8 +133,7 @@ export default function SplitViews (op) {
     if (ops.onDragEnd) {
       const newSizes = []
       for (const child of children) {
-        if (!child.classList.contains(ops.gutterCln))
-          newSizes.push(child.style.flexGrow * 100);
+        if (!child.classList.contains(ops.gutterCln)) newSizes.push(child.style.flexGrow * 100)
       }
       ops.onDragEnd(newSizes)
     }
@@ -148,4 +147,12 @@ export default function SplitViews (op) {
 
   addEvent("touchstart", onStart)
   addEvent("mousedown", onStart)
+
+  return {
+    parent: parentEL,
+    destroy () {
+      rmEvent("touchstart", onStart)
+      rmEvent("mousedown", onStart)
+    }
+  }
 }
