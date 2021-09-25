@@ -7,13 +7,15 @@
 - No events listeners are attached to Window.
 - Compatible: Firefox - Chrome - Safari - Opera - Android - (FlexBox is not supported in IE).
 
-<div align="center" style="width:100%; text-align:center;">
-<img src="https://badgen.net/bundlephobia/minzip/split-views" alt="split-views" />
+<div align="center" style="width:100%; text-align:center; margin-bottom:20px;">
+  <img src="https://badgen.net/bundlephobia/minzip/split-views" alt="split-views" />
   <img src="https://badgen.net/bundlephobia/dependency-count/split-views" alt="split-views" />
   <img src="https://badgen.net/npm/v/split-views" alt="split-views" />
   <img src="https://badgen.net/npm/dt/split-views" alt="split-views" />
   <img src="https://data.jsdelivr.com/v1/package/npm/split-views/badge" alt="split-views"/>
 </div>  
+
+![Split views](https://i.ibb.co/0h4gVd5/split-views.gif)
 
 <hr />  
 
