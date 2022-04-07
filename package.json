@@ -1,15 +1,13 @@
 {
   "name": "split-views",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Fast and Lightweight Utility for Resizable Split Views",
   "module": "build/index.esm.js",
   "main": "build/index.js",
   "scripts": {
-    "rm:win": "rmdir /S /Q build",
-    "rm:linux": "rmdir dirname build",
-    "dev": "sv --inject true --port 8001",
-    "watch": "set NODE_ENV=developement && rollup -w -c",
-    "build": "yarn rm:win &&set NODE_ENV=production && rollup -c"
+    "dev": "NODE_ENV=developement && sv --inject true --port 8001",
+    "build": "NODE_ENV=production && rollup -c",
+    "deploy": "cp build/index.js docs/lib.js && gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -22,10 +20,13 @@
   "author": "Haikel Fazzani",
   "license": "MIT",
   "devDependencies": {
-    "rollup": "^2.35.1",
-    "rollup-plugin-postcss": "^3.1.8",
+    "gh-pages": "^3.2.3",
+    "rollup": "^2.70.1",
     "rollup-plugin-terser": "^7.0.2",
-    "servino": "0.0.6"
+    "rollup-plugin-typescript2": "^0.31.2",
+    "servino": "^0.0.10",
+    "tslib": "^2.3.1",
+    "typescript": "^4.6.3"
   },
   "keywords": [
     "resizer",

@@ -51,7 +51,7 @@ Or include it via jsDelivr CDN (UMD):
 | `minSize`    | `Number`                      | `0`           | Minimum size.                               |
 | `gutterSize` | `Number`                      | `5`            | Gutter size (seperator).                    |
 | `direction`  | `String`                      | `'horizontal'`   | Resize direction: horizontal or vertical. |
-| `onDragEnd`  | `Method`                      |    `null`        | Callback with new sizes in %.               |
+| `onDragEnd`  | `Method`                      | `null`        | Callback with new sizes in %.               |
 
 ## Methods & Examples
 ```js

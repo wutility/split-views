@@ -1,8 +1,18 @@
-export default function SplitViews (op) {
-  const isNode = n => typeof n === "string" ? document.querySelector(n) : n;
-  const convertSizes = s => s && s.length > 0 ? s.map(s => s / 100) : [];
+interface IOption {
+  parent: HTMLElement | string,
+  direction?: string,
+  gutterCln?: string,
+  gutterSize?: number,
+  minSize?: number,
+  sizes: Array<number>,
+  onDragEnd?: any
+}
 
-  const setSizes = (children, isHr) => {
+export default function SplitViews(op: IOption) {
+  const isNode = (n: HTMLElement | string) => typeof n === "string" ? document.querySelector(n) : n;
+  const convertSizes = (s: Array<number>) => s && s.length > 0 ? s.map(s => s / 100) : [];
+
+  const setSizes = (children: Array<HTMLElement>, isHr: boolean) => {
     let isNotGutter = 0
     for (const child of children) {
       if (child.classList.contains(ops.gutterCln)) {
@@ -10,7 +20,7 @@ export default function SplitViews (op) {
         child.style.cursor = (isHr ? 'col' : 'row') + '-resize'
       }
       else {
-        child.style.flex = ops.sizes.length > 0 ? ops.sizes[isNotGutter] : 1
+        child.style.flex = '' + (ops.sizes.length > 0 ? ops.sizes[isNotGutter] : 1)
         isNotGutter++
       }
     }
@@ -26,11 +36,11 @@ export default function SplitViews (op) {
     onDragEnd: op.onDragEnd
   };
 
-  let parentEL = ops.parent,
-    children = Array.from(parentEL.children),
-    leftChild,
-    rightChild,
-    gutter,
+  let parentEL: any = ops.parent,
+    children = [...parentEL.children],
+    leftChild: HTMLElement,
+    rightChild: HTMLElement,
+    gutter: any,
     addEvent = parentEL.addEventListener,
     rmEvent = parentEL.removeEventListener
 
@@ -49,7 +59,7 @@ export default function SplitViews (op) {
 
   setSizes(children, isHr)
 
-  function onStart (e) {
+  function onStart(e: any) {
     gutter = e.target
     isMouseDown = true
 
@@ -98,7 +108,7 @@ export default function SplitViews (op) {
     }
   }
 
-  function onMove (e) {
+  function onMove(e: any) {
     if (isMouseDown) {
       e = isTouch
         ? e.changedTouches[0]
@@ -113,8 +123,8 @@ export default function SplitViews (op) {
       const minsize = parentEL.dataset.minsize
 
       if (leftSize >= minsize && rightSize >= minsize) {
-        leftChild.style.flexGrow = sumGrow * (leftSize / sumSize)
-        rightChild.style.flexGrow = sumGrow * (rightSize / sumSize)
+        leftChild.style.flexGrow = (sumGrow * (leftSize / sumSize)).toString()
+        rightChild.style.flexGrow = (sumGrow * (rightSize / sumSize)).toString()
       }
 
       lastPos = pageDir
@@ -126,12 +136,12 @@ export default function SplitViews (op) {
     }
   }
 
-  function onStop () {
+  function onStop() {
     isMouseDown = false
     gutter = null
 
     if (ops.onDragEnd) {
-      const newSizes = []
+      const newSizes: Array<number> = []
       for (const child of children) {
         if (!child.classList.contains(ops.gutterCln)) newSizes.push(child.style.flexGrow * 100)
       }
@@ -150,7 +160,7 @@ export default function SplitViews (op) {
 
   return {
     parent: parentEL,
-    destroy () {
+    destroy() {
       rmEvent("touchstart", onStart)
       rmEvent("mousedown", onStart)
     }
