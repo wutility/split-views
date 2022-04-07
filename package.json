@@ -1,13 +1,13 @@
 {
   "name": "split-views",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Fast and Lightweight Utility for Resizable Split Views",
   "module": "build/index.esm.js",
   "main": "build/index.js",
   "scripts": {
     "dev": "NODE_ENV=developement && sv --inject true --port 8001",
     "build": "NODE_ENV=production && rollup -c",
-    "deploy": "npm run build && cp build/index.js docs/lib.js"
+    "netlify-deploy": "npm run build && cp build/index.js docs/lib.js"
   },
   "repository": {
     "type": "git",
