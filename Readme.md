@@ -19,7 +19,7 @@
 
 <hr />  
 
-### [Demo](https://split-views.netlify.app/)
+### [Demo](https://wutility.github.io/split-views)
 
 ```bash
 $ npm i split-views
