@@ -55,9 +55,14 @@ export default function SplitViews(op: IOption) {
     lastPos = 0;
 
   parentEL.dataset.minsize = ops.minSize
-  parentEL.style.flexDirection = isHr ? 'row' : 'column'
+  parentEL.style.flexDirection = isHr ? 'row' : 'column';
 
-  setSizes(children, isHr)
+  setSizes(children, isHr);
+
+  const resize = () => {
+    leftChild.style.flexGrow = (sumGrow * (leftSize / sumSize)).toString();
+    rightChild.style.flexGrow = (sumGrow * (rightSize / sumSize)).toString();
+  }
 
   function onStart(e: any) {
     gutter = e.target
@@ -114,17 +119,16 @@ export default function SplitViews(op: IOption) {
         ? e.changedTouches[0]
         : e
 
+      const minsize = parseInt(parentEL.dataset.minsize, 10);
+
       let pageDir = isHr ? e.pageX : e.pageY,
         diff = pageDir - lastPos;
 
-      leftSize += diff
-      rightSize -= diff
+      leftSize += diff;
+      rightSize -= diff;
 
-      const minsize = parentEL.dataset.minsize
-
-      if (leftSize >= minsize && rightSize >= minsize) {
-        leftChild.style.flexGrow = (sumGrow * (leftSize / sumSize)).toString()
-        rightChild.style.flexGrow = (sumGrow * (rightSize / sumSize)).toString()
+      if (leftSize > minsize && rightSize > minsize) {
+        resize();
       }
 
       lastPos = pageDir

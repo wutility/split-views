@@ -1,13 +1,13 @@
 {
   "name": "split-views",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Fast and Lightweight Utility for Resizable Split Views",
   "module": "build/index.esm.js",
   "main": "build/index.js",
   "scripts": {
-    "dev": "NODE_ENV=developement && sv --inject true --port 8001",
-    "build": "NODE_ENV=production && rollup -c",
-    "deploy": "yarn build && cp build/index.js docs/lib.js && gh-pages -d docs"
+    "copy":"cp build/index.js docs/lib.js",
+    "dev": "NODE_ENV=developement yarn build && yarn copy",
+    "build": "NODE_ENV=production && rollup -c && yarn copy"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "pane",
     "split",
     "view",
-    "utility"
+    "utility",
+    "split.js"
   ]
 }

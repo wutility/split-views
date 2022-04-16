@@ -26,12 +26,16 @@ body {
 }
 
 .split-view>div, .box {  
-  overflow: auto;
+  overflow: hidden;
   background-color: #ffffff;
   color: #000000;
-  padding: 10px; 
   box-shadow: 0 1px 5px 0 rgba(60,64,67,.3); 
 }
+
+.split-view>div p, .box p {  
+  padding: 10px; 
+}
+
 
 pre {
 width: 100%;
