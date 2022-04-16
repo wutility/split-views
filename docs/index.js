@@ -44,9 +44,4 @@ document.querySelector('.pre-html-code').textContent = `
 
 </div>`;
 
-document.querySelector('.pre-cdn').textContent = `<script src="https://cdn.jsdelivr.net/npm/split-views@2.0.11/build/index.umd.min.js"></script>
-<!-- Or via unpkg -->
-<script src="https://unpkg.com/split-views"></script>
-<!-- Access via global object : window.SplitViews -->`;
-
 hljs.highlightAll();
