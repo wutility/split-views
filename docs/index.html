@@ -4,65 +4,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SplitViews</title>
+  <title>SplitViews - Developer Library</title>
   <meta name="description"
-    content="A lightweight, zero-dependency TypeScript library for creating resizable split views (panes) in web applications.">
+    content="A powerful JavaScript library for creating resizable split views. Perfect for developer tools and applications.">
   <link rel="stylesheet" href="style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/split-views/dist/index.umd.min.js"></script>
+  {# <script src="https://cdn.jsdelivr.net/npm/split-views/dist/index.umd.min.js"></script> #}
+  <script src="../dist/index.umd.js"></script>
 
-  <header>
-    <h1>SplitViews</h1>
-    <p>A lightweight, zero-dependency TypeScript library for creating resizable split views (panes) in web applications.
-    </p>
-  </header>
-
-  <main>
-    <form class="d-flex gap-1 flex-wrap align-center" id="form">
-      <div class="form-control">
-        <label for="direction">direction</label>
-        <select name="direction" id="direction">
-          <option value="horizontal">horizontal</option>
-          <option value="vertical">vertical</option>
-        </select>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-content">
+        <div class="brand">
+          <h1 class="logo">SplitViews</h1>
+          <span class="tagline">Resizable Split Layouts for Developers</span>
+        </div>
+        <div class="header-actions">
+          <a href="https://github.com/wutility/split-views" class="header-link">Documentation</a>
+          <a href="https://github.com/wutility/split-views" class="header-link">GitHub</a>
+          <button class="install-btn">npm install split-views</button>
+        </div>
       </div>
+    </header>
 
-      <div class="form-control">
-        <label for="columns">columns</label>
-        <input type="number" name="columns" id="columns" value="2">
+    <main class="main-content">
+      <div class="content-layout">
+
+        <section class="control-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Configuration</h2>
+            <div class="panel-status">
+              <span class="status-dot"></span>
+              <span class="status-text">Live Preview</span>
+            </div>
+          </div>
+
+          <form class="config-form">
+            <div class="form-row">
+              <div class="form-field">
+                <label class="field-label">Direction</label>
+                <select name="direction" class="field-select">
+                  <option value="">Choose direction...</option>
+                  <option value="horizontal">Horizontal</option>
+                  <option value="vertical">Vertical</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label class="field-label">Columns</label>
+                <input type="number" name="columns" class="field-input" min="1" max="10" value="2" placeholder="2">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label class="field-label">Gutter Size (px)</label>
+                <input type="number" name="gutterSize" class="field-input" min="0" max="20" value="5" placeholder="10">
+              </div>
+
+              <div class="form-field">
+                <label class="field-label">Min Size (px)</label>
+                <input type="number" name="minSize" class="field-input" min="0" value="0" placeholder="100">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label class="field-label">Snap Offset (px)</label>
+                <input type="number" name="snapOffset" class="field-input" min="0" value="0" placeholder="30">
+              </div>
+
+              <div class="form-field">
+                <button type="submit" class="apply-btn">Apply Changes</button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+
+        <div>
+          <div class="split-container">
+            <div class="pane pane-primary">
+              <div class="pane-content">
+                <span class="pane-label">Panel A</span>
+                <p class="pane-desc">Resizable content area</p>
+              </div>
+            </div>
+            <div class="pane pane-secondary">
+              <div class="pane-content">
+                <span class="pane-label">Panel B</span>
+                <p class="pane-desc">Another resizable area</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="code-header">
+            <h2 class="code-title">Generated Code</h2>
+            <button class="copy-code-btn">Copy to Clipboard</button>
+          </div>
+
+          <div class="code-wrapper">
+            <pre class="code-block"><code class="code-content">// Configure your split view and see the code here
+    const splitView = new SplitViews({
+      // Configuration will update as you change settings
+    });</code></pre>
+          </div>
+        </div>
+
       </div>
-
-      <div class="form-control">
-        <label for="gutterSize">gutterSize</label>
-        <input type="number" name="gutterSize" id="gutterSize" value="5">
-      </div>
-
-      <div class="form-control">
-        <label for="minSize">minSize</label>
-        <input type="number" name="minSize" id="minSize" value="0">
-      </div>
-
-      <div class="form-control">
-        <label for="snapOffset">snapOffset</label>
-        <input type="number" name="snapOffset" id="snapOffset" value="0">
-      </div>
-
-      <button type="submit">apply</button>
-
-    </form>
-
-    <section>
-
-      <div id="split" class="split-view">
-        <div class="pane"><span>Pane 1</span></div>
-        <div class="pane">Pane 2</div>
-      </div>
-    </section>
-  </main>
-
-  <script src="index.js"></script>
+    </main>
+  </div>
 </body>
+<script src="index.js"></script>
 
 </html>

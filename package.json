@@ -1,6 +1,6 @@
 {
   "name": "split-views",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A lightweight, zero-dependency TypeScript library for creating resizable split views (panes) in web applications.",
   "private": false,
   "type": "module",
