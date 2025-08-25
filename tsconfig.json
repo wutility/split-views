@@ -1,17 +1,15 @@
 {
   "compilerOptions": {
-    "target": "esnext", /* 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */
-    "allowJs": true,
-    "checkJs": false,
-    "declaration": true, /* Generates corresponding '.d.ts' file. */
-    "sourceMap": true,
-    "outDir": "./build",
-    "removeComments": true,
-    "noEmit": false,
+    "target": "ESNext",
+    "module": "ESNext",
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "outDir": "./dist",
     "strict": false,
-    "allowSyntheticDefaultImports": true    
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"],
-  "files": ["src/index.ts"]
+  "include": ["src"]
 }

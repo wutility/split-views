@@ -3,13 +3,15 @@ public/
 website/
 node_modules/
 src/
-dist/
 tests/
 docs/
 testr/
 
 index.html
-index.js
+test.js
+test.ts
+*.html
+*.css
 
 yarn.lock
 package-lock.json
@@ -21,3 +23,5 @@ package-lock.json
 
 rollup.config.js
 bs-config.js
+vite.config.ts
+tsconfig.json

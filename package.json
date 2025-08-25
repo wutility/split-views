@@ -1,14 +1,38 @@
 {
   "name": "split-views",
-  "version": "2.1.4",
+  "version": "3.0.0",
   "description": "Fast and Lightweight Utility for Resizable Split Views",
-  "module": "build/index.esm.js",
-  "main": "build/index.js",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "browser": "./dist/index.umd.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "copy":"cp build/index.js docs/lib.js",
-    "dev": "NODE_ENV=developement yarn build && yarn copy",
-    "build": "NODE_ENV=production && rollup -c && yarn copy"
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "deno": "deno run --unstable-sloppy-imports --allow-net tests/index.test.ts"
   },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.3",
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "keywords": [
+    "resizer",
+    "pane",
+    "split",
+    "view",
+    "utility",
+    "split.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wutility/split-views.git"
@@ -18,22 +42,5 @@
   },
   "homepage": "https://github.com/wutility/split-views.git#readme",
   "author": "Haikel Fazzani",
-  "license": "MIT",
-  "devDependencies": {
-    "gh-pages": "^3.2.3",
-    "rollup": "^2.70.1",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.31.2",
-    "servino": "^0.0.10",
-    "tslib": "^2.3.1",
-    "typescript": "^4.6.3"
-  },
-  "keywords": [
-    "resizer",
-    "pane",
-    "split",
-    "view",
-    "utility",
-    "split.js"
-  ]
+  "license": "MIT"
 }

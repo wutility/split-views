@@ -3,110 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Fastest Resizeable Split Views">
-  <meta name="keywords" content="resize, split, pane, views, flexbox, javascript, lightweight">
-  <meta name="author" content="Haikel Fazzani">
-  <title>SplitViews - Fastest Resizeable Split Views</title>
+  <title>SplitViews Example</title>
   
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/monokai.min.css" integrity="sha512-RLF8eOxhuwsRINc7r56dpl9a3VStqrXD+udWahutJrYdyh++2Ghnf+s4jFsOyryKZt/GNjPwbXVPH3MJpKrn2g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  
-  <link href="//fonts.googleapis.com/css2?family=Open+Sans&family=Dancing+Script&display=swap" rel="stylesheet">
-  
-  <script src="lib.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js" integrity="sha512-BNc7saQYlxCL10lykUYhFBcnzdKMnjx5fp5s5wPucDyZ7rKNwCoqJh1GwEAIhuePEK4WM9askJBRsu7ma0Rzvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    *{box-sizing: border-box;}
+
+    body {margin: 0; background-color: #f3f3f3;}
+    section {display: flex; padding: .5rem; background-color: #fff; max-width: 50%;border-radius: 8px;  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);}
+    
+    .split-view {      
+  width: 100%;
+  max-width: 100%;
+  height: 200px;
+  border: 4px dotted #ccc;
+  overflow: hidden;
+}
+
+.pane {
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.sp-gutter {
+  background: #999;
+  transition: all 0.2s;
+}
+
+.sp-gutter:hover {
+  background: #666;
+}
+
+h2 {
+  margin-left: 20px;
+}
+  </style>
+
 </head>
 <body>
-  <div class="container">
-    <h1><a href="//github.com/wutility/split-views">SplitViews</a></h1>
-    <div class="mb-2 txt-center">
-      <h3 class="mb-0">Utility for resizable split views</h3>
-      <h3 class="m-0">Fast, Simple and lightweight &lt;1kb</h3>
-      <h3 class="m-0">with 0 dependencies</h3>
+  <script src="lib.js"></script>
+
+  <h2>Horizontal Split View</h2>
+  
+  <section>
+    <div id="split-horizontal" class="split-view">
+      <div class="pane"><span>Pane 1</span></div>
+      <div class="pane">Pane 2</div>
+      <div class="pane">Pane 3</div>
     </div>
+  </section>
 
-    <div class="w-100 txt-center">
-      <img src="//badgen.net/bundlephobia/minzip/split-views" alt="split views" />
-      <img src="//badgen.net/bundlephobia/dependency-count/split-views" alt="split views" />
-      <img src="//badgen.net/npm/v/split-views" alt="split views" />
-      <img src="//badgen.net/npm/dt/split-views" alt="split views" />
-      <img src="//data.jsdelivr.com/v1/package/npm/split-views/badge" alt="split views" />
+  <h2>Vertical Split View</h2>
+  
+  <section>
+    <div id="split-vertical" class="split-view">
+      <div class="pane">Pane 1: Top Content</div>
+      <div class="pane">Pane 2: Bottom Content</div>
     </div>
-
-    <pre class="w-50 language-javascript txt-center"><code>$ npm install split-views 
-// or via yarn: 
-$ yarn add split-views</code></pre>
-
-    <div id="sv" class="split-view horizontal mb-2 mt-2">
-      <div>
-        <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-      </div>
-      <span class="sp-gutter"></span>
-      <div>
-        <p>Where can I get some? There are many variations of passages of Lorem Ipsum available, but the majority have
-          suffered alteration in some form,</p>
-      </div>
-      <span class="sp-gutter"></span>
-      <div id="sv2" class="split-view vertical p-0">
-        <div>
-          <p>What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-        </div>
-        <span class="sp-gutter"></span>
-        <div>
-          <p>What is Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-            has been the industry's standard dummy text ever since the 1500s,</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="w-100 grid-2">
-      <pre class="language-html"><code class="pre-html-code"></code></pre>
-
-      <pre class="language-css"><code>.split-view {
-  width: 100%;
-  height: 400px;
-  /*   
-    display: flex; (required)
-    SplitViews is flexbox based
-  */
-  display: flex;
-}
-
-.horizontal { 
-  flex-direction: row; 
-}
-
-.vertical { 
-  flex-direction: colmun; 
-}</code></pre>
-
-      <pre class="language-javascript"><code>import SplitViews from 'split-views';
-
-SplitViews({
-  parent: '.split-view',
-  direction: 'horizontal',
-  gutterSize: 10,
-  minSize: 0,
-  sizes: [25, 50, 25],
-  onDragEnd: (newSizes) => {
-    console.log(newSizes);
-  }
-});
-
-// Vertical direction
-window.SplitViews({
-  parent: '.split-view2',
-  direction: 'vertical',
-  gutterSize: 5,
-  minSize: 20,
-  sizes: [75, 25]
-});</code></pre>
-    </div>
-  </div>
-
-  <footer class="txt-center mt-2">
-    <h4>© 2020. MIT license. <a href="//github.com/haikelfazzani">Haikel Fazzani</a></h4>
-  </footer>
+  </section>
 
   <script src="index.js"></script>
 </body>

@@ -1,11 +1,19 @@
-# ✂ SplitViews  
-**Utility for resizable split views.**
+# SplitViews
 
-- Fast & Simple to use.
-- Lightweight <1kb.
-- Zero dependencies.
-- No events listeners are attached to Window.
-- Compatible: Firefox - Chrome - Safari - Opera - Android - (FlexBox is not supported in IE).
+A lightweight, zero-dependency TypeScript library for creating resizable split
+views (panes) in web applications.
+
+## Features
+
+- Create horizontal or vertical split views
+- Configurable gutter size and styling
+- Support for minimum pane sizes
+- Initial size configuration
+- Snap-to-minimum size behavior
+- Drag and drag-end event callbacks
+- Programmatic size control
+- Touch-friendly
+- Lightweight (~2KB minified)
 
 <div align="center" style="width:100%; text-align:center; margin-bottom:20px;">
   <img src="https://badgen.net/bundlephobia/minzip/split-views" alt="split-views" />
@@ -13,21 +21,14 @@
   <img src="https://badgen.net/npm/v/split-views" alt="split-views" />
   <img src="https://badgen.net/npm/dt/split-views" alt="split-views" />
   <img src="https://data.jsdelivr.com/v1/package/npm/split-views/badge" alt="split-views"/>
-</div>  
+</div>
 
 ![Split views](https://i.ibb.co/0h4gVd5/split-views.gif)
 
-<hr />  
+<hr />
 
 ### [Demo](https://wutility.github.io/split-views)
 
-```bash
-$ npm i split-views
-# or
-$ yarn add split-views
-```
-
-## Usage
 ```js
 import SplitViews from 'split-views';
 ```
@@ -40,49 +41,87 @@ Or include it via jsDelivr CDN (UMD):
 <!-- Access via global object : window.SplitViews -->
 ```
 
-## Documentation
+## Usage
 
-- **SplitViews(options: Object): Object**  
+```javascript
+import SplitViews from "splitviews";
 
-| Options      | Type                          | Default        | Description                                 |
-| ------------ | ----------------------------- | -------------- | ------------------------------------------- |
-| `parent`     | `HTMLElement` or `String`  | `'.split-view'` | Parent element.                             |
-| `sizes`      | `Array<Number>`               | `[]`           | Initial sizes of each element in %.         |
-| `minSize`    | `Number`                      | `0`           | Minimum size.                               |
-| `gutterSize` | `Number`                      | `5`            | Gutter size (seperator).                    |
-| `direction`  | `String`                      | `'horizontal'`   | Resize direction: horizontal or vertical. |
-| `onDragEnd`  | `Method`                      | `null`        | Callback with new sizes in %.               |
+const split = SplitViews({
+  root: "#container",
+  direction: "horizontal",
+  gutterSize: 10,
+  minSize: [100, 200],
+  sizes: [30, 70],
+  onDrag: (sizes) => console.log("Dragging:", sizes),
+  onDragEnd: (sizes) => console.log("Drag ended:", sizes),
+});
 
-## Methods & Examples
-```js
-const options = {
-  parent: '#parent-id', // or HTMLElement
-  direction: 'horizontal',
-  gutterSize: 5,
-  minSize: 20,
-  sizes: [25, 50, 25],
-  onDragEnd: (newSizes) => {
-    console.log(newSizes);
-  }
-};
+// Programmatically set sizes
+split.setSizes([40, 60]);
 
-const sp = SplitViews(options)
+// Get current sizes
+const currentSizes = split.getSizes();
 
-// detroy method: remove "touchstart" and "mousedown" events
-// the others events are removed by default
-sp.detroy() 
+// Destroy the split view
+split.destroy();
 ```
 
-# Related
-- [React](https://github.com/haikelfazzani/react-split-views): React component wrapper
+HTML structure:
 
-## Notes
-- Tested on Chrome 67, Firefox 67, Edge 70, Opera 67, Safari 11, Android (>= 4).
-- SplitViews is flex-based.
-- All pull requests are welcome, feel free.
+```html
+<div id="container">
+  <div>Pane 1</div>
+  <div>Pane 2</div>
+</div>
+```
 
-## Author
-- [Haikel Fazzani](https://github.com/haikelfazzani)
+## API
+
+### SplitViews(options: SplitOptions)
+
+Initializes a new split view.
+
+#### Options
+
+| Property          | Type                         | Description                       | Default               |
+| ----------------- | ---------------------------- | --------------------------------- | --------------------- |
+| `root`            | `HTMLElement \| string`      | Container element or selector     | -                     |
+| `direction`       | `'horizontal' \| 'vertical'` | Split direction                   | `'horizontal'`        |
+| `gutterSize`      | `number`                     | Gutter size in pixels             | `10`                  |
+| `gutterClassName` | `string`                     | CSS class for gutters             | `'split-zero-gutter'` |
+| `minSize`         | `number \| number[]`         | Minimum pane size(s) in pixels    | `0`                   |
+| `sizes`           | `number[]`                   | Initial pane sizes as percentages | Equal distribution    |
+| `snapOffset`      | `number`                     | Snap threshold in pixels          | `0`                   |
+| `onDrag`          | `(sizes: number[]) => void`  | Callback during drag              | -                     |
+| `onDragEnd`       | `(sizes: number[]) => void`  | Callback after drag               | -                     |
+
+#### Methods
+
+- `destroy()`: Removes gutters and resets styles
+- `setSizes(sizes: number[])`: Programmatically set pane sizes
+- `getSizes(): number[]`: Get current pane sizes
+
+## Example
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/split-views/build/index.min.js"></script>
+
+<div id="container" style="height: 400px">
+  <div style="background: #eee">Pane 1</div>
+  <div style="background: #ddd">Pane 2</div>
+</div>
+
+<script>
+  window.SplitViews({
+    root: "#container",
+    direction: "horizontal",
+    gutterSize: 8,
+    minSize: 100,
+    sizes: [40, 60],
+  });
+</script>
+```
 
 ## License
-MIT
+
+MIT License

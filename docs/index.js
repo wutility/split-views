@@ -1,47 +1,31 @@
-let sp = window.SplitViews({
-  parent: '#sv',
+
+// Horizontal split view
+const horizontalSplit = SplitViews({
+  root: '#split-horizontal',
   direction: 'horizontal',
-  gutterSize: 10,
+  gutterSize: 5,
   minSize: 0,
   snapOffset: 20,
-  sizes: [25, 50, 25],
-  onDragEnd: (values) => {
-    console.log('onDragEnd', values);
+  sizes: [30, 40, 30], // Initial sizes in percentages
+  onDragEnd: (newSizes) => {
+    console.log('Horizontal new sizes:', newSizes);
   }
 });
 
-// vertical direction
-window.SplitViews({
-  parent: '#sv2',
+// Vertical split view
+const verticalSplit = SplitViews({
+  root: '#split-vertical',
   direction: 'vertical',
   gutterSize: 5,
-  minSize: 20,
-  sizes: [75, 25]
+  minSize: 0,
+  sizes: [30, 70], // Initial sizes in percentages
+  onDragEnd: (newSizes) => {
+    console.log('Vertical new sizes:', newSizes);
+  }
 });
 
-document.querySelector('.pre-html-code').textContent = `
-<!-- 
-  horizontal (or vertical) className are required 
-  when you wish to use 2 instances
-  of SplitViews in the same page
--->
-
-<div class="split-view horizontal">
-  <div>child 1</div>
-
-  <!-- ClassName 'sp-gutter' is required -->
-  <span class="sp-gutter"></span>
-
-  <div>child 2</div>
-
-  <span class="sp-gutter"></span>
-
-  <div class="split-view2 vertical">
-    <div>Child 3</div>
-    <span class="sp-gutter"></span>
-    <div>Child 4</div>
-  </div>
-
-</div>`;
-
-hljs.highlightAll();
+// Example of destroying a split view (optional)
+// setTimeout(() => {
+//   horizontalSplit.destroy();
+//   console.log('Horizontal split view destroyed');
+// }, 10000);

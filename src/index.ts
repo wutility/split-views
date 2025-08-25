@@ -1,172 +1,204 @@
-interface IOption {
-  parent: HTMLElement | string,
-  direction?: string,
-  gutterCln?: string,
-  gutterSize?: number,
-  minSize?: number,
-  sizes: Array<number>,
-  onDragEnd?: any
+export interface SplitOptions {
+  root: HTMLElement | string;
+  direction?: 'horizontal' | 'vertical';
+  gutterSize?: number;
+  gutterClassName?: string;
+  minSize?: number | number[];
+  sizes?: number[];
+  snapOffset?: number;
+  onDrag?: (sizes: number[]) => void;
+  onDragEnd?: (sizes: number[]) => void;
 }
 
-export default function SplitViews(op: IOption) {
-  const isNode = (n: HTMLElement | string) => typeof n === "string" ? document.querySelector(n) : n;
-  const convertSizes = (s: Array<number>) => s && s.length > 0 ? s.map(s => s / 100) : [];
+export default function SplitViews(opts: SplitOptions) {
 
-  const setSizes = (children: Array<HTMLElement>, isHr: boolean) => {
-    let isNotGutter = 0
-    for (const child of children) {
-      if (child.classList.contains(ops.gutterCln)) {
-        child.style.flex = `0 0 ${ops.gutterSize}px`
-        child.style.cursor = (isHr ? 'col' : 'row') + '-resize'
-      }
-      else {
-        child.style.flex = '' + (ops.sizes.length > 0 ? ops.sizes[isNotGutter] : 1)
-        isNotGutter++
-      }
+  const toEl = (sel: HTMLElement | string): HTMLElement =>
+    typeof sel === 'string'
+      ? (document.querySelector(sel) as HTMLElement)
+      : sel;
+
+  const clamp = (n: number, min: number, max: number) =>
+    Math.min(Math.max(n, min), max);
+
+  const HORIZONTAL = 'horizontal';
+  const VERTICAL = 'vertical';
+
+  let root: HTMLElement;
+  let panes: HTMLElement[];
+
+  if (Array.isArray(opts.root)) {
+    throw new Error('SplitViews: root must be HTMLElement | string');
+  }
+
+  root = toEl(opts.root);
+  panes = Array.from(root.children) as HTMLElement[];
+
+  const dir = opts.direction === VERTICAL ? VERTICAL : HORIZONTAL;
+  const isH = dir === HORIZONTAL;
+  const gutterSz = opts.gutterSize ?? 10;
+  const snapOffset = opts.snapOffset ?? 0;
+
+  const mins = Array.isArray(opts.minSize)
+    ? opts.minSize
+    : Array(panes.length).fill(opts.minSize ?? 0);
+
+  if (panes.length !== mins.length) {
+    throw new Error('SplitViews: minSize array length must equal pane count');
+  }
+
+  /* ---------- build gutters --------------------------------------------- */
+  const gutters: HTMLElement[] = [];
+  panes.forEach((pane, idx) => {
+    pane.setAttribute('data-split-zero-pane', String(idx));
+  });
+  for (let i = 1; i < panes.length; i++) {
+    const g = document.createElement('div');
+    g.className = opts.gutterClassName ?? 'split-zero-gutter';
+    g.style.cssText = `
+      flex: 0 0 ${gutterSz}px;
+      cursor: ${isH ? 'col-resize' : 'row-resize'};
+      background: #ddd;
+      touch-action: none;
+    `;
+    root.insertBefore(g, panes[i]);
+    gutters.push(g);
+  }
+
+  /* ---------- container -------------------------------------------------- */
+  root.style.display = 'flex';
+  root.style.flexDirection = isH ? 'row' : 'column';
+
+  /* ---------- sizes ------------------------------------------------------ */
+  let currentSizes: number[] = opts.sizes?.length
+    ? [...opts.sizes]
+    : Array(panes.length).fill(100 / panes.length);
+
+  function applySizes() {
+    const totalPct = currentSizes.reduce((a, b) => a + b, 0);
+    const safeSizes =
+      totalPct === 0
+        ? Array(panes.length).fill(100 / panes.length)
+        : currentSizes.map(s => (s / totalPct) * 100);
+    const dim = isH ? 'width' : 'height';
+    const gutterTotal = gutters.length * gutterSz;
+
+    panes.forEach((pane, i) => {
+      const pct = safeSizes[i];
+      (pane.style as any)[dim] = `calc(${pct}% - ${(pct / 100) * gutterTotal}px)`;
+      pane.style.flex = '0 0 auto';
+    });
+  }
+  applySizes();
+
+  /* ---------- drag state ------------------------------------------------- */
+  let activeGutter: HTMLElement | null = null;
+  let aIdx = -1;
+  let bIdx = -1;
+  let startCoord = 0;
+  let aStartPct = 0;
+  let bStartPct = 0;
+  let lastClientCoord = 0;
+  let isTicking = false;
+
+  /* ---------- listeners -------------------------------------------------- */
+  function onDown(ev: PointerEvent, gutter: HTMLElement) {
+    ev.preventDefault();
+    activeGutter = gutter;
+    aIdx = gutters.indexOf(gutter);
+    bIdx = aIdx + 1;
+
+    startCoord = isH ? ev.clientX : ev.clientY;
+    aStartPct = currentSizes[aIdx];
+    bStartPct = currentSizes[bIdx];
+
+    gutter.setPointerCapture(ev.pointerId);
+    gutter.addEventListener('pointermove', onMove);
+    gutter.addEventListener('pointerup', onUp, { once: true });
+  }
+
+  function onMove(ev: PointerEvent) {
+    if (!activeGutter) return;
+
+    lastClientCoord = isH ? ev.clientX : ev.clientY;
+
+    if (!isTicking) {
+      requestAnimationFrame(() => {
+        if (!activeGutter) {
+          isTicking = false;
+          return;
+        }
+
+        const deltaPx = lastClientCoord - startCoord;
+        const rootPx = isH ? root.offsetWidth : root.offsetHeight;
+        const deltaPct = (deltaPx / rootPx) * 100;
+
+        let aPct = aStartPct + deltaPct;
+        let bPct = bStartPct - deltaPct;
+
+        const aMinPx = mins[aIdx];
+        const bMinPx = mins[bIdx];
+        const aMinPct = (aMinPx / rootPx) * 100;
+        const bMinPct = (bMinPx / rootPx) * 100;
+
+        /* snap logic ------------------------------------------------------ */
+        const aSnap = (aMinPx + snapOffset) / rootPx * 100;
+        const bSnap = (bMinPx + snapOffset) / rootPx * 100;
+
+        if (aPct <= aSnap) aPct = aMinPct;
+        if (bPct <= bSnap) bPct = bMinPct;
+
+        aPct = clamp(aPct, aMinPct, 100 - bMinPct);
+        bPct = clamp(bPct, bMinPct, 100 - aMinPct);
+
+        const total = aPct + bPct;
+        if (total > 0) {
+          aPct = (aPct / total) * (aStartPct + bStartPct);
+          bPct = (bPct / total) * (aStartPct + bStartPct);
+        }
+
+        currentSizes[aIdx] = aPct;
+        currentSizes[bIdx] = bPct;
+
+        applySizes();
+        opts.onDrag?.(currentSizes);
+        isTicking = false;
+      });
+      isTicking = true;
     }
   }
 
-  let ops = {
-    parent: isNode(op.parent) || '.split-view',
-    direction: op.direction,
-    gutterCln: 'sp-gutter',
-    gutterSize: op.gutterSize || 5,
-    minSize: op.minSize || 0,
-    sizes: convertSizes(op.sizes),
-    onDragEnd: op.onDragEnd
-  };
+  function onUp(ev: PointerEvent) {
+    if (!activeGutter) return;
+    activeGutter.releasePointerCapture(ev.pointerId);
+    activeGutter.removeEventListener('pointermove', onMove);
 
-  let parentEL: any = ops.parent,
-    children = [...parentEL.children],
-    leftChild: HTMLElement,
-    rightChild: HTMLElement,
-    gutter: any,
-    addEvent = parentEL.addEventListener,
-    rmEvent = parentEL.removeEventListener
-
-  let isHr = ops.direction === 'horizontal',
-    isTouch = false,
-    isMouseDown = false;
-
-  let leftSize = 0,
-    rightSize = 0,
-    sumGrow = 0,
-    sumSize = 0,
-    lastPos = 0;
-
-  parentEL.dataset.minsize = ops.minSize
-  parentEL.style.flexDirection = isHr ? 'row' : 'column';
-
-  setSizes(children, isHr);
-
-  const resize = () => {
-    leftChild.style.flexGrow = (sumGrow * (leftSize / sumSize)).toString();
-    rightChild.style.flexGrow = (sumGrow * (rightSize / sumSize)).toString();
+    opts.onDragEnd?.(currentSizes);
+    activeGutter = null;
   }
 
-  function onStart(e: any) {
-    gutter = e.target
-    isMouseDown = true
+  gutters.forEach(g => {
+    g.addEventListener('pointerdown', e => onDown(e, g));
+  });
 
-    if (!gutter.classList.contains(ops.gutterCln)) {
-      isMouseDown = false
-      return
-    }
-
-    parentEL = gutter.parentNode
-    isHr = parentEL.classList.contains('horizontal')
-
-    isTouch = /^touch/g.test(e.type)
-    leftChild = gutter.previousElementSibling
-    rightChild = gutter.nextElementSibling
-
-    if (leftChild && rightChild) {
-
-      leftSize = isHr
-        ? leftChild.offsetWidth
-        : leftChild.offsetHeight
-
-      rightSize = isHr
-        ? rightChild.offsetWidth
-        : rightChild.offsetHeight
-
-      e = isTouch
-        ? e.changedTouches[0]
-        : e
-
-      lastPos = isHr
-        ? e.pageX
-        : e.pageY
-
-      sumSize = leftSize + rightSize
-      sumGrow = Number(leftChild.style.flexGrow) + Number(rightChild.style.flexGrow)
-    }
-
-    if (isTouch) {
-      addEvent("touchmove", onMove)
-      addEvent("touchend", onStop)
-      addEvent("touchcancel", onStop)
-    }
-    else {
-      addEvent("mousemove", onMove)
-      addEvent("mouseup", onStop)
-    }
-  }
-
-  function onMove(e: any) {
-    if (isMouseDown) {
-      e = isTouch
-        ? e.changedTouches[0]
-        : e
-
-      const minsize = parseInt(parentEL.dataset.minsize, 10);
-
-      let pageDir = isHr ? e.pageX : e.pageY,
-        diff = pageDir - lastPos;
-
-      leftSize += diff;
-      rightSize -= diff;
-
-      if (leftSize > minsize && rightSize > minsize) {
-        resize();
-      }
-
-      lastPos = pageDir
-    }
-
-    if (!isTouch) {
-      e.preventDefault()
-      e.stopPropagation()
-    }
-  }
-
-  function onStop() {
-    isMouseDown = false
-    gutter = null
-
-    if (ops.onDragEnd) {
-      const newSizes: Array<number> = []
-      for (const child of children) {
-        if (!child.classList.contains(ops.gutterCln)) newSizes.push(child.style.flexGrow * 100)
-      }
-      ops.onDragEnd(newSizes)
-    }
-
-    rmEvent("touchmove", onMove)
-    rmEvent("touchend", onStop)
-    rmEvent("touchcancel", onStop)
-    rmEvent("mousemove", onMove)
-    rmEvent("mouseup", onStop)
-  }
-
-  addEvent("touchstart", onStart)
-  addEvent("mousedown", onStart)
-
+  /* ---------- public API ------------------------------------------------- */
   return {
-    parent: parentEL,
+    root,
     destroy() {
-      rmEvent("touchstart", onStart)
-      rmEvent("mousedown", onStart)
-    }
-  }
+      gutters.forEach(g => g.remove());
+
+      root.style.display = '';
+      root.style.flexDirection = '';
+      panes.forEach(pane => {
+        pane.style.width = '';
+        pane.style.height = '';
+        pane.style.flex = '';
+      });
+    },
+    setSizes(sizes: number[]) {
+      if (sizes.length !== panes.length) return;
+      currentSizes = [...sizes];
+      applySizes();
+    },
+    getSizes: () => [...currentSizes]
+  };
 }
