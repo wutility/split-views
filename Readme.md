@@ -90,14 +90,9 @@ const split = SplitViews({
 
 ## API
 
-```ts
-type SplitHandle = {
-  root: HTMLElement;
-  setSizes(sizes: number[]): void; // percentages per pane
-  getSizes(): number[]; // percentages per pane
-  destroy(): void; // remove gutters, listeners, inline styles
-};
-```
+- `destroy()`: Removes gutters and resets styles
+- `setSizes(sizes: number[])`: Programmatically set pane sizes
+- `getSizes(): number[]`: Get current pane sizes
 
 ---
 
