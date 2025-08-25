@@ -54,13 +54,7 @@ const splitView = new SplitViews({
     console.log('Panel sizes updated:', newSizes);
     // Handle resize events in your application
   }
-});
-
-// Advanced Usage
-splitView.setSizes([30, 70]); // Programmatically set sizes
-splitView.collapse(0);         // Collapse first panel
-splitView.expand(0);           // Expand first panel
-splitView.destroy();           // Clean up when done`
+});`
 
   codeBlock.textContent = configCode
 }
