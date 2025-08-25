@@ -6,7 +6,7 @@ const horizontalSplit = SplitViews({
   gutterSize: 5,
   minSize: 0,
   snapOffset: 20,
-  sizes: [30, 40, 30], // Initial sizes in percentages
+  sizes: [30, 40, 30],
   onDragEnd: (newSizes) => {
     console.log('Horizontal new sizes:', newSizes);
   }
@@ -18,7 +18,7 @@ const verticalSplit = SplitViews({
   direction: 'vertical',
   gutterSize: 5,
   minSize: 0,
-  sizes: [30, 70], // Initial sizes in percentages
+  sizes: [30, 70],
   onDragEnd: (newSizes) => {
     console.log('Vertical new sizes:', newSizes);
   }

@@ -13,7 +13,6 @@ views (panes) in web applications.
 - Drag and drag-end event callbacks
 - Programmatic size control
 - Touch-friendly
-- Lightweight (~2KB minified)
 
 <div align="center" style="width:100%; text-align:center; margin-bottom:20px;">
   <img src="https://badgen.net/bundlephobia/minzip/split-views" alt="split-views" />
@@ -52,6 +51,7 @@ const split = SplitViews({
   gutterSize: 10,
   minSize: [100, 200],
   sizes: [30, 70],
+  snapOffset: 0,
   onDrag: (sizes) => console.log("Dragging:", sizes),
   onDragEnd: (sizes) => console.log("Drag ended:", sizes),
 });
@@ -60,7 +60,7 @@ const split = SplitViews({
 split.setSizes([40, 60]);
 
 // Get current sizes
-const currentSizes = split.getSizes();
+split.getSizes();
 
 // Destroy the split view
 split.destroy();
