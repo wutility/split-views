@@ -1,7 +1,7 @@
 {
   "name": "split-views",
   "version": "3.0.0",
-  "description": "Fast and Lightweight Utility for Resizable Split Views",
+  "description": "A lightweight, zero-dependency TypeScript library for creating resizable split views (panes) in web applications.",
   "private": false,
   "type": "module",
   "main": "./dist/index.js",
@@ -16,8 +16,7 @@
     "dev": "vite",
     "preview": "vite preview",
     "clean": "rm -rf dist",
-    "prepublishOnly": "npm run clean && npm run build",
-    "deno": "deno run --unstable-sloppy-imports --allow-net tests/index.test.ts"
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",
@@ -31,6 +30,8 @@
     "split",
     "view",
     "utility",
+    "split panes",
+    "resize panes",
     "split.js"
   ],
   "repository": {
