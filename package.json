@@ -1,6 +1,6 @@
 {
   "name": "split-views",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A lightweight, zero-dependency TypeScript library for creating resizable split views (panes) in web applications.",
   "private": false,
   "type": "module",
@@ -42,6 +42,5 @@
     "url": "https://github.com/wutility/split-views.git/issues"
   },
   "homepage": "https://github.com/wutility/split-views.git#readme",
-  "author": "Haikel Fazzani",
   "license": "MIT"
 }

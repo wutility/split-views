@@ -6,12 +6,12 @@ let defaultOptions = {
 };
 
 let sp = SplitViews({
-  root: '#split-horizontal',
+  root: '#split',
   ...defaultOptions,
   sizes: [50, 50]
 });
 
-const container = document.getElementById('split-horizontal');
+const container = document.getElementById('split');
 
 document.getElementById('form').addEventListener('submit', e => {
   e.preventDefault();

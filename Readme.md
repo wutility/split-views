@@ -88,7 +88,7 @@ Initializes a new split view.
 | `root`            | `HTMLElement \| string`      | Container element or selector     | -                     |
 | `direction`       | `'horizontal' \| 'vertical'` | Split direction                   | `'horizontal'`        |
 | `gutterSize`      | `number`                     | Gutter size in pixels             | `10`                  |
-| `gutterClassName` | `string`                     | CSS class for gutters             | `'split-zero-gutter'` |
+| `gutterClassName` | `string`                     | CSS class for gutters             | `'split-gutter'` |
 | `minSize`         | `number \| number[]`         | Minimum pane size(s) in pixels    | `0`                   |
 | `sizes`           | `number[]`                   | Initial pane sizes as percentages | Equal distribution    |
 | `snapOffset`      | `number`                     | Snap threshold in pixels          | `0`                   |

@@ -4,16 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SplitViews Example</title>
-  <meta name="description" content="A lightweight, zero-dependency TypeScript library for creating resizable split views (panes) in web applications.">
+  <title>SplitViews</title>
+  <meta name="description"
+    content="A lightweight, zero-dependency TypeScript library for creating resizable split views (panes) in web applications.">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <script src="https://cdn.jsdelivr.net/npm/split-views/dist/index.umd.min.js"></script>
 
+  <header>
+    <h1>SplitViews</h1>
+    <p>A lightweight, zero-dependency TypeScript library for creating resizable split views (panes) in web applications.
+    </p>
+  </header>
+
   <main>
-    <form id="form">
+    <form class="d-flex gap-1 flex-wrap align-center" id="form">
       <div class="form-control">
         <label for="direction">direction</label>
         <select name="direction" id="direction">
@@ -21,39 +28,39 @@
           <option value="vertical">vertical</option>
         </select>
       </div>
-  
+
       <div class="form-control">
         <label for="columns">columns</label>
         <input type="number" name="columns" id="columns" value="2">
       </div>
-  
+
       <div class="form-control">
         <label for="gutterSize">gutterSize</label>
         <input type="number" name="gutterSize" id="gutterSize" value="5">
       </div>
-  
+
       <div class="form-control">
         <label for="minSize">minSize</label>
         <input type="number" name="minSize" id="minSize" value="0">
       </div>
-  
+
       <div class="form-control">
         <label for="snapOffset">snapOffset</label>
         <input type="number" name="snapOffset" id="snapOffset" value="0">
       </div>
-  
+
       <button type="submit">apply</button>
-  
+
     </form>
 
     <section>
-      <h2>Horizontal Split View</h2>
-      <div id="split-horizontal" class="split-view">
+
+      <div id="split" class="split-view">
         <div class="pane"><span>Pane 1</span></div>
         <div class="pane">Pane 2</div>
       </div>
     </section>
-  </main>  
+  </main>
 
   <script src="index.js"></script>
 </body>

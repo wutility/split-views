@@ -12,13 +12,9 @@ export interface SplitOptions {
 
 export default function SplitViews(opts: SplitOptions) {
 
-  const toEl = (sel: HTMLElement | string): HTMLElement =>
-    typeof sel === 'string'
-      ? (document.querySelector(sel) as HTMLElement)
-      : sel;
+  const toEl = (sel: HTMLElement | string): HTMLElement => typeof sel === 'string' ? (document.querySelector(sel) as HTMLElement) : sel;
 
-  const clamp = (n: number, min: number, max: number) =>
-    Math.min(Math.max(n, min), max);
+  const clamp = (n: number, min: number, max: number) => Math.min(Math.max(n, min), max);
 
   const HORIZONTAL = 'horizontal';
   const VERTICAL = 'vertical';
@@ -49,17 +45,12 @@ export default function SplitViews(opts: SplitOptions) {
   /* ---------- build gutters --------------------------------------------- */
   const gutters: HTMLElement[] = [];
   panes.forEach((pane, idx) => {
-    pane.setAttribute('data-split-zero-pane', String(idx));
+    pane.setAttribute('data-split-pane', String(idx));
   });
   for (let i = 1; i < panes.length; i++) {
     const g = document.createElement('div');
-    g.className = opts.gutterClassName ?? 'split-zero-gutter';
-    g.style.cssText = `
-      flex: 0 0 ${gutterSz}px;
-      cursor: ${isH ? 'col-resize' : 'row-resize'};
-      background: #ddd;
-      touch-action: none;
-    `;
+    g.className = opts.gutterClassName ?? 'split-gutter';
+    g.style.cssText = `flex: 0 0 ${gutterSz}px; cursor: ${isH ? 'col-resize' : 'row-resize'}; touch-action: none;`;
     root.insertBefore(g, panes[i]);
     gutters.push(g);
   }
@@ -69,16 +60,11 @@ export default function SplitViews(opts: SplitOptions) {
   root.style.flexDirection = isH ? 'row' : 'column';
 
   /* ---------- sizes ------------------------------------------------------ */
-  let currentSizes: number[] = opts.sizes?.length
-    ? [...opts.sizes]
-    : Array(panes.length).fill(100 / panes.length);
+  let currentSizes: number[] = opts.sizes?.length ? [...opts.sizes] : Array(panes.length).fill(100 / panes.length);
 
   function applySizes() {
     const totalPct = currentSizes.reduce((a, b) => a + b, 0);
-    const safeSizes =
-      totalPct === 0
-        ? Array(panes.length).fill(100 / panes.length)
-        : currentSizes.map(s => (s / totalPct) * 100);
+    const safeSizes = totalPct === 0 ? Array(panes.length).fill(100 / panes.length) : currentSizes.map(s => (s / totalPct) * 100);
     const dim = isH ? 'width' : 'height';
     const gutterTotal = gutters.length * gutterSz;
 
