@@ -1,31 +1,45 @@
-
-// Horizontal split view
-const horizontalSplit = SplitViews({
-  root: '#split-horizontal',
+let defaultOptions = {
   direction: 'horizontal',
   gutterSize: 5,
   minSize: 0,
   snapOffset: 20,
-  sizes: [30, 40, 30],
-  onDragEnd: (newSizes) => {
-    console.log('Horizontal new sizes:', newSizes);
-  }
+};
+
+let sp = SplitViews({
+  root: '#split-horizontal',
+  ...defaultOptions,
+  sizes: [50, 50]
 });
 
-// Vertical split view
-const verticalSplit = SplitViews({
-  root: '#split-vertical',
-  direction: 'vertical',
-  gutterSize: 5,
-  minSize: 0,
-  sizes: [30, 70],
-  onDragEnd: (newSizes) => {
-    console.log('Vertical new sizes:', newSizes);
-  }
-});
+const container = document.getElementById('split-horizontal');
 
-// Example of destroying a split view (optional)
-// setTimeout(() => {
-//   horizontalSplit.destroy();
-//   console.log('Horizontal split view destroyed');
-// }, 10000);
+document.getElementById('form').addEventListener('submit', e => {
+  e.preventDefault();
+
+  if (sp) sp.destroy();
+
+  const elements = e.target.elements;
+
+  [...elements].forEach(el => {
+    defaultOptions = { ...defaultOptions, [el.name]: isNaN(el.value) ? el.value : Number(el.value) };
+  });
+
+
+  const result = 100 / defaultOptions.columns;
+  const sizes = new Array(defaultOptions.columns).fill(result);
+  container.innerHTML = '';
+
+  sizes.forEach((s,i) => {
+    container.innerHTML += `<div class="pane"><span>Pane ${i+1}</span></div>`
+  });
+
+  sp = SplitViews({
+    root: container,
+    ...defaultOptions,
+    sizes,
+    onDragEnd: (newSizes) => {
+      console.log(newSizes);
+    }
+  });
+
+});

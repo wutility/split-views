@@ -1,66 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SplitViews Example</title>
-  
-  <style>
-    *{box-sizing: border-box;}
-
-    body {margin: 0; background-color: #f3f3f3;}
-    section {display: flex; padding: .5rem; background-color: #fff; max-width: 50%;border-radius: 8px;  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);}
-    
-    .split-view {      
-  width: 100%;
-  max-width: 100%;
-  height: 200px;
-  border: 4px dotted #ccc;
-  overflow: hidden;
-}
-
-.pane {
-  box-sizing: border-box;
-  overflow: auto;
-}
-
-.sp-gutter {
-  background: #999;
-  transition: all 0.2s;
-}
-
-.sp-gutter:hover {
-  background: #666;
-}
-
-h2 {
-  margin-left: 20px;
-}
-  </style>
-
+  <meta name="description" content="A lightweight, zero-dependency TypeScript library for creating resizable split views (panes) in web applications.">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <script src="lib.js"></script>
 
-  <h2>Horizontal Split View</h2>
   
-  <section>
-    <div id="split-horizontal" class="split-view">
-      <div class="pane"><span>Pane 1</span></div>
-      <div class="pane">Pane 2</div>
-      <div class="pane">Pane 3</div>
-    </div>
-  </section>
+  <main>
+    <form id="form">
+      <div class="form-control">
+        <label for="direction">direction</label>
+        <select name="direction" id="direction">
+          <option value="horizontal">horizontal</option>
+          <option value="vertical">vertical</option>
+        </select>
+      </div>
+  
+      <div class="form-control">
+        <label for="columns">columns</label>
+        <input type="number" name="columns" id="columns" value="2">
+      </div>
+  
+      <div class="form-control">
+        <label for="gutterSize">gutterSize</label>
+        <input type="number" name="gutterSize" id="gutterSize" value="5">
+      </div>
+  
+      <div class="form-control">
+        <label for="minSize">minSize</label>
+        <input type="number" name="minSize" id="minSize" value="0">
+      </div>
+  
+      <div class="form-control">
+        <label for="snapOffset">snapOffset</label>
+        <input type="number" name="snapOffset" id="snapOffset" value="0">
+      </div>
+  
+      <button type="submit">apply</button>
+  
+    </form>
 
-  <h2>Vertical Split View</h2>
-  
-  <section>
-    <div id="split-vertical" class="split-view">
-      <div class="pane">Pane 1: Top Content</div>
-      <div class="pane">Pane 2: Bottom Content</div>
-    </div>
-  </section>
+    <section>
+      <h2>Horizontal Split View</h2>
+      <div id="split-horizontal" class="split-view">
+        <div class="pane"><span>Pane 1</span></div>
+        <div class="pane">Pane 2</div>
+      </div>
+    </section>
+  </main>  
 
   <script src="index.js"></script>
 </body>
+
 </html>
