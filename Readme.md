@@ -12,7 +12,6 @@ Zero dependencies. Modern **Pointer Events**. CSS-variable driven sizing.
 <div align="center" style="width:100%; text-align:center; margin-bottom:20px;">
   <img src="https://badgen.net/bundlephobia/minzip/split-views" alt="split-views" />
   <img src="https://badgen.net/bundlephobia/dependency-count/split-views" alt="split-views" />
-  <img src="https://badgen.net/npm/v/split-views" alt="split-views" />
   <img src="https://badgen.net/npm/dt/split-views" alt="split-views" />
   <img src="https://data.jsdelivr.com/v1/package/npm/split-views/badge" alt="split-views"/>
 </div>
@@ -30,12 +29,8 @@ import SplitViews from "split-views";
 Or include it via jsDelivr CDN (UMD):
 
 ```html
-<script
-  src="https://cdn.jsdelivr.net/npm/split-views/dist/index.umd.min.js"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/split-views/dist/index.umd.min.js"></script>
 <!-- Access via global object : window.SplitViews -->
-<!-- Or via unpkg -->
-<script src="https://unpkg.com/split-views"></script>
 ```
 
 ## Quick Start

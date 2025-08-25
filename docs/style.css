@@ -35,8 +35,9 @@ body {
 }
 
 .brand {
+  max-width: 500px;
   display: flex;
-  align-items: center;
+  flex-direction: column;  
   gap: 1rem;
 }
 
